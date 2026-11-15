@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: kaz-einstein-29
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: false
