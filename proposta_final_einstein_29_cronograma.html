@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proposta Final — Einstein 29 · Entropia · Kaz Formaturas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "Cigra";
+      src: url("./assets/cigra.woff") format("woff");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Baskerville E";
+      src: url("./assets/baskerville-i.woff2") format("woff2");
+      font-style: italic;
+      font-display: swap;
+    }
+
+    :root {
+      --noite: #021141;
+      --noite-bg: #04153d;
+      --noite-deep: #020b26;
+      --noite-card: #0a1f4d;
+      --gelo: #c9d6e6;
+      --luz: #9fc8ec;
+      --ouro: #e2b25c;
+      --ouro-soft: #d6b46a;
+      --petroleo: #0d576d;
+      --jeans: #3b6d98;
+      --papel: #f5f7fb;
+      --papel-card: #ebf0f8;
+      --ink: #081533;
+      --ink-muted: #3b4b6b;
+      --line-light: rgba(8, 21, 51, 0.12);
+      --line-dark: rgba(201, 214, 230, 0.22);
+      --f-disp: "Cigra", "Cormorant Garamond", Georgia, serif;
+      --f-edit: "Instrument Serif", "Baskerville E", Georgia, serif;
+      --f-body: "Manrope", system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0b1020;
+      font-family: var(--f-body);
+      color: var(--ink);
+      line-height: 1.38;
+    }
+
+    /* Toolbar solo pantalla */
+    .screen-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(2, 11, 38, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line-dark);
+      padding: 10px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #f2f5fa;
+    }
+    .screen-bar .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .screen-bar .brand img {
+      height: 22px;
+    }
+    .screen-bar .actions {
+      display: flex;
+      gap: 10px;
+    }
+    .screen-bar button {
+      background: var(--ouro);
+      color: #020b26;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-family: var(--f-body);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .screen-bar button.sec {
+      background: rgba(255, 255, 255, 0.1);
+      color: #f2f5fa;
+      border: 1px solid var(--line-dark);
+    }
+
+    /* Página A4 */
+    .a4-page {
+      width: 210mm;
+      height: 297mm;
+      margin: 18px auto;
+      background: var(--papel);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+      page-break-after: always;
+      break-after: page;
+    }
+
+    /* Portada oscura estilo kaz-einstein-29.vercel.app */
+    .a4-dark {
+      background: radial-gradient(85% 65% at 50% 22%, #133468 0%, #04153d 52%, #020b26 100%);
+      color: #f2f5fa;
+    }
+    .cover-bg-img {
+      position: absolute;
+      inset: 0;
+      background: url("./assets/capa.webp") center/cover no-repeat;
+      opacity: 0.28;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    .moldura-a4 {
+      position: absolute;
+      inset: 8mm;
+      border: 1px solid rgba(201, 214, 230, 0.24);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .moldura-a4-light {
+      position: absolute;
+      inset: 8mm;
+      border: 1px solid rgba(8, 21, 51, 0.12);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .page-inner {
+      position: relative;
+      z-index: 3;
+      padding: 12mm 14mm 10mm 14mm;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Header interno constante */
+    .doc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 6px;
+      border-bottom: 1.5px solid var(--noite);
+      margin-bottom: 8px;
+    }
+    .doc-header .left {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--noite);
+    }
+    .doc-header .left span {
+      color: var(--jeans);
+      margin: 0 6px;
+    }
+    .doc-header .right {
+      font-size: 8.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .doc-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 6px;
+      border-top: 1px solid var(--line-light);
+      font-size: 8px;
+      color: var(--ink-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .doc-footer strong {
+      color: var(--noite);
+    }
+
+    /* Tipografía editorial */
+    .eyebrow {
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--jeans);
+      margin-bottom: 3px;
+    }
+    .a4-dark .eyebrow {
+      color: var(--luz);
+    }
+
+    h1.disp-title {
+      font-family: var(--f-disp);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 0.94;
+      margin: 0;
+    }
+    h2.sec-title {
+      font-family: var(--f-disp);
+      font-weight: 400;
+      font-size: 23px;
+      text-transform: uppercase;
+      letter-spacing: 0.015em;
+      line-height: 0.98;
+      color: var(--noite);
+      margin: 0 0 2px 0;
+    }
+    .sec-sub {
+      font-family: var(--f-edit);
+      font-style: italic;
+      font-size: 13.5px;
+      color: var(--jeans);
+      margin: 0 0 8px 0;
+    }
+
+    /* Bloque de Imágenes Glassmorphism (Fidelidad Visual Curada) */
+    .glass-gallery {
+      background: linear-gradient(135deg, rgba(4, 21, 61, 0.94) 0%, rgba(10, 31, 77, 0.88) 100%);
+      border: 1px solid rgba(159, 200, 236, 0.35);
+      box-shadow: 0 10px 26px rgba(2, 11, 38, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      border-radius: 7px;
+      padding: 6px;
+      margin: 6px 0;
+    }
+    .photo-strip-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      height: 31mm;
+    }
+    .photo-strip-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      height: 31mm;
+    }
+    .photo-strip-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      height: 29mm;
+    }
+    .photo-box {
+      position: relative;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1px solid rgba(201, 214, 230, 0.25);
+      background: var(--noite-deep);
+    }
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-box .tag-pill {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(2, 11, 38, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(226, 178, 92, 0.55);
+      color: var(--ouro);
+      font-size: 6.5px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .photo-box .cap {
+      position: absolute;
+      inset: auto 4px 4px 4px;
+      padding: 4px 7px;
+      border-radius: 4px;
+      background: rgba(4, 21, 61, 0.76);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(201, 214, 230, 0.26);
+      color: #ffffff;
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .photo-box .cap em {
+      font-style: normal;
+      color: var(--luz);
+      font-weight: 600;
+      font-size: 7px;
+    }
+
+    /* KPI Strip */
+    .kpi-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin: 6px 0;
+    }
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid var(--line-light);
+      border-top: 2.5px solid var(--noite);
+      padding: 7px 9px;
+      border-radius: 3px;
+    }
+    .kpi-card.accent-gold {
+      background: var(--noite-bg);
+      color: #f2f5fa;
+      border: 1px solid rgba(226, 178, 92, 0.4);
+      border-top: 2.5px solid var(--ouro);
+    }
+    .kpi-val {
+      font-family: var(--f-disp);
+      font-size: 19.5px;
+      line-height: 1.05;
+      color: var(--noite);
+      margin-bottom: 2px;
+    }
+    .kpi-card.accent-gold .kpi-val {
+      color: var(--ouro);
+    }
+    .kpi-lbl {
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .kpi-card.accent-gold .kpi-lbl {
+      color: var(--gelo);
+    }
+
+    /* Callout boxes */
+    .callout {
+      background: var(--papel-card);
+      border-left: 3px solid var(--noite);
+      padding: 7px 10px;
+      border-radius: 0 4px 4px 0;
+      font-size: 9.5px;
+      margin: 6px 0;
+    }
+    .callout.gold {
+      background: linear-gradient(90deg, rgba(226, 178, 92, 0.15), rgba(226, 178, 92, 0.04));
+      border-left-color: var(--ouro);
+    }
+    .callout-title {
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--noite);
+      margin-bottom: 2px;
+    }
+
+    /* Tablas editoriales */
+    table.ed-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9.1px;
+      margin: 5px 0;
+      background: #ffffff;
+      border: 1px solid var(--line-light);
+    }
+    table.ed-table th {
+      background: var(--noite);
+      color: #f2f5fa;
+      font-size: 7.6px;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      text-align: left;
+      padding: 5px 7px;
+      border-bottom: 2px solid var(--ouro);
+    }
+    table.ed-table td {
+      padding: 4.7px 7px;
+      border-bottom: 1px solid var(--line-light);
+      vertical-align: top;
+    }
+    table.ed-table tr:nth-child(even) td {
+      background: #f9fbfe;
+    }
+    table.ed-table tr.row-total td {
+      background: var(--papel-card);
+      font-weight: 700;
+      color: var(--noite);
+      border-top: 1.5px solid var(--noite);
+    }
+    table.ed-table tr.row-highlight td {
+      background: var(--noite-bg);
+      color: #f2f5fa;
+      font-weight: 700;
+    }
+    .num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    /* Bullet list */
+    ul.ed-list {
+      margin: 4px 0;
+      padding-left: 14px;
+      font-size: 9.3px;
+    }
+    ul.ed-list li {
+      margin-bottom: 3px;
+    }
+    ul.ed-list li::marker {
+      color: var(--ouro);
+    }
+
+    /* Timeline 6 passos */
+    .timeline-6 {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 5px;
+      margin: 6px 0;
+    }
+    .t-step {
+      background: #ffffff;
+      border: 1px solid var(--line-light);
+      border-top: 2px solid var(--jeans);
+      padding: 6px 5px;
+      border-radius: 3px;
+    }
+    .t-step .num-tag {
+      font-size: 7.5px;
+      font-weight: 800;
+      color: var(--jeans);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .t-step .t-title {
+      font-size: 8.8px;
+      font-weight: 700;
+      color: var(--noite);
+      margin: 2px 0;
+    }
+    .t-step .t-desc {
+      font-size: 7.8px;
+      color: var(--ink-muted);
+      line-height: 1.28;
+    }
+
+    /* Two / Three column grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+    }
+
+    .event-card {
+      background: #ffffff;
+      border: 1px solid var(--line-light);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .event-card-head {
+      padding: 7px 9px;
+      color: #f2f5fa;
+    }
+    .event-card-head.eq { background: linear-gradient(135deg, #0d576d, #042838); border-bottom: 2px solid var(--ouro); }
+    .event-card-head.v365 { background: linear-gradient(135deg, #3b6d98, #1c3f60); border-bottom: 2px solid #f2c46d; }
+    .event-card-head.after { background: linear-gradient(135deg, #0a1f4d, #02050f); border-bottom: 2px solid var(--luz); }
+    .event-card-head .tag {
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+    .event-card-head h3 {
+      font-family: var(--f-disp);
+      font-size: 16px;
+      font-weight: 400;
+      margin: 1px 0 0 0;
+      text-transform: uppercase;
+    }
+    .event-card-body {
+      padding: 7px 9px;
+      font-size: 8.5px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .event-card-body p {
+      margin: 0 0 4px 0;
+    }
+    .event-card-foot {
+      background: var(--papel-card);
+      padding: 5px 9px;
+      border-top: 1px solid var(--line-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--noite);
+    }
+
+    .badge-pill {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-size: 7.8px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(159, 200, 236, 0.16);
+      color: var(--luz);
+      border: 1px solid rgba(159, 200, 236, 0.35);
+    }
+
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+      body {
+        background: none;
+      }
+      .screen-bar {
+        display: none !important;
+      }
+      .a4-page {
+        margin: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="screen-bar">
+    <div class="brand">
+      <img src="./assets/kaz-logo-branco.svg" alt="KAZ Formaturas">
+      <span>EINSTEIN 29 · ENTROPIA — PROPOSTA FINAL</span>
+    </div>
+    <div class="actions">
+      <button class="sec" onclick="exportToWord()">Baixar Word (.doc)</button>
+      <button onclick="window.print()">Imprimir / Salvar PDF (A4)</button>
+    </div>
+  </div>
+
+  <div id="doc-root">
+
+  <!-- ========================================================= -->
+  <!-- PÁGINA 1: CAPA EDITORIAL (ESTÉTICA ENTROPIA)              -->
+  <!-- ========================================================= -->
+  <section class="a4-page a4-dark">
+    <div class="cover-bg-img"></div>
+    <div class="moldura-a4"></div>
+    <div class="page-inner" style="padding: 18mm 18mm 15mm 18mm;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--luz); font-weight:700;">
+          KAZ ONE / GESTÃO INTEGRADA
+        </div>
+        <img src="./assets/kaz-logo-branco.svg" alt="KAZ Formaturas" style="height:26px;">
+      </div>
+
+      <div style="text-align:center; margin: auto 0;">
+        <img src="./assets/logo-branco.webp" alt="Entropia Einstein 29" style="width:170px; height:auto; margin:0 auto 14px auto; display:block; filter:drop-shadow(0 12px 32px rgba(0,0,0,0.5));">
+        <div class="eyebrow" style="color:var(--ouro); letter-spacing:0.28em; margin-bottom:10px;">PROPOSTA FINAL · EINSTEIN 29 · CONCLUSÃO 2029.2</div>
+        <h1 class="disp-title" style="font-size:62px; color:#ffffff; letter-spacing:0.03em;">EINSTEIN 29</h1>
+        <p style="font-family:var(--f-edit); font-style:italic; font-size:25px; color:var(--luz); margin:8px 0 18px 0;">
+          Entropia · Sete trajetórias, um único estado
+        </p>
+        <div style="width:140px; height:1px; background:linear-gradient(90deg, transparent, var(--ouro), transparent); margin:0 auto 18px auto;"></div>
+        <p style="font-size:11px; color:var(--gelo); max-width:440px; margin:0 auto 20px auto; line-height:1.6;">
+          Uma curadoria completa pensada para conectar os sete cursos do Einstein da primeira ativação ao amanhecer do After:
+          <strong>Lançamento</strong>, <strong>Equinócio</strong>, <strong>365º</strong>, <strong>O Último Estado</strong> no Espaço Pro Magno e <strong>After Oficial</strong>.
+        </p>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:6px; max-width:460px; margin:0 auto;">
+          <span class="badge-pill">Biomedicina</span>
+          <span class="badge-pill">Enfermagem</span>
+          <span class="badge-pill">Engenharia Biomédica</span>
+          <span class="badge-pill">Fisioterapia</span>
+          <span class="badge-pill">Medicina Veterinária</span>
+          <span class="badge-pill">Nutrição</span>
+          <span class="badge-pill">Odontologia</span>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--line-dark); padding-top:12px; display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:10px; font-size:9px; color:var(--gelo); letter-spacing:0.08em; text-transform:uppercase;">
+        <div>
+          <div style="color:var(--luz); font-size:7.5px; margin-bottom:2px;">Instituição</div>
+          <strong>Fac. Israelita de Ciências da Saúde Albert Einstein</strong>
+        </div>
+        <div style="text-align:center;">
+          <div style="color:var(--luz); font-size:7.5px; margin-bottom:2px;">Conclusão · Referência</div>
+          <strong>2029.2 · Proposta 36554</strong>
+        </div>
+        <div style="text-align:right;">
+          <div style="color:var(--luz); font-size:7.5px; margin-bottom:2px;">Consultor Responsável</div>
+          <strong>Felippe Rodrigues Mancuzo</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- PÁGINA 2: A PROPOSTA EM UMA PÁGINA (SÍNTESE EXECUTIVA)    -->
+  <!-- ========================================================= -->
+  <section class="a4-page">
+    <div class="moldura-a4-light"></div>
+    <div class="page-inner">
+      <div>
+        <div class="doc-header">
+          <div class="left">EINSTEIN 29 <span>/</span> PROPOSTA FINAL</div>
+          <div class="right">SÍNTESE PARA DECISÃO · ENTROPIA</div>
+        </div>
+
+        <div class="eyebrow">Visão Executiva</div>
+        <h2 class="sec-title">A proposta, em uma página</h2>
+        <p class="sec-sub">Escala, experiência e condição final reunidas com clareza para a escolha da comissão.</p>
+
+        <div class="glass-gallery">
+          <div class="photo-strip-3">
+            <div class="photo-box">
+              <img src="./assets/baile_promagno.webp" alt="Espaço Pro Magno Térreo + Anexo">
+              <span class="tag-pill">O Palco</span>
+              <div class="cap"><span>Espaço Pro Magno</span><em>9.650 m²</em></div>
+            </div>
+            <div class="photo-box">
+              <img src="./assets/baile_entropia-completa.webp" alt="Conceito Entropia Einstein 29">
+              <span class="tag-pill">Cenografia</span>
+              <div class="cap"><span>Túnel Museu &amp; Teto Einstein</span><em>Autoral</em></div>
+            </div>
+            <div class="photo-box">
+              <img src="./assets/eq_pista.webp" alt="Experiência de Pista e Palco">
+              <span class="tag-pill">Atmosfera</span>
+              <div class="cap"><span>Show, Luz &amp; Imersão</span><em>4 Eventos</em></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kpi-grid-4">
+          <div class="kpi-card">
+            <div class="kpi-val">240</div>
+            <div class="kpi-lbl">Formandos na Base</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-val">24</div>
+            <div class="kpi-lbl">Membros da Comissão</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-val">2 + 1</div>
+            <div class="kpi-lbl">Pré-Eventos + After</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-val">4.200</div>
+            <div class="kpi-lbl">Convidados no Baile</div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">A Curadoria da Jornada Entropia</div>
+          Uma jornada completa planejada para conectar os <strong>7 cursos</strong> do Einstein (Biomedicina, Enfermagem, Engenharia Biomédica, Fisioterapia, Medicina Veterinária, Nutrição e Odontologia): lançamento presencial e digital, dois pré-eventos autorais (<strong>Equinócio</strong> e <strong>365º</strong>), Grande Baile (<strong>O Último Estado</strong>) no Espaço Pro Magno e After oficial no mesmo local.
+        </div>
+
+        <ul class="ed-list">
+          <li><strong>Pacote-base por formando:</strong> 1 mesa redonda (10 lugares) e <strong>10 convites totais</strong> (Formando + 9 convidados).</li>
+          <li><strong>Alavancagem por Receitas Extras:</strong> Planejamento estratégico de <strong>960 convites extras</strong> (R$ 821.440,00) e <strong>60 mesas extras</strong> (R$ 524.940,00), abatendo <strong>37,48%</strong> do valor global do projeto.</li>
+          <li><strong>Eficiência Comercial &amp; Fee Efetivo:</strong> Fee administrativo efetivo de apenas <strong>8,13%</strong> (R$ 264.245,56), já contemplando <strong>R$ 48.000,00 de Investimento Enjoy</strong> (R$ -200,00/formando) e <strong>R$ 12.960,00 de Desconto de Fechamento</strong>.</li>
+          <li><strong>Cenografia &amp; Escala no Pro Magno:</strong> 9.650 m² integrados (Térreo + Anexo), 324 mesas totais, <em>Túnel Museu</em>, <em>Teto Einstein</em>, <em>Decoração Aérea</em> e 14 pontos de foto.</li>
+        </ul>
+
+        <div class="eyebrow" style="margin-top:6px;">Arquitetura de Investimento por Experiência</div>
+        <table class="ed-table">
+          <thead>
+            <tr>
+              <th>Experiência</th>
+              <th>Conceito &amp; Local</th>
+              <th>Escala &amp; Formato</th>
+              <th class="num">Investimento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Grande Baile</strong></td>
+              <td><strong>O Último Estado</strong> · Pro Magno (Térreo + Anexo)</td>
+              <td>4.200 convidados · 324 mesas · Buffet + Show Bar 7h</td>
+              <td class="num">R$ 2.801.201,78</td>
+            </tr>
+            <tr>
+              <td><strong>Lançamento &amp; MKT</strong></td>
+              <td>Campanha Entropia · Campus &amp; Digital</td>
+              <td>Cooking/Mooving/Sliders, 29 Kits Adesão, Live &amp; Sorteios</td>
+              <td class="num">R$ 28.600,00</td>
+            </tr>
+            <tr>
+              <td><strong>Pré-Evento Meio</strong></td>
+              <td><strong>Equinócio</strong> · Casa Maria Jardins</td>
+              <td>198 convidados · Noturno (7h) · Open Bar c/ Destilados</td>
+              <td class="num">R$ 115.795,56</td>
+            </tr>
+            <tr>
+              <td><strong>Pré-Evento 365</strong></td>
+              <td><strong>365º</strong> · Lagoon Beach Club (Wet'n Wild)</td>
+              <td>225 convidados · Diurno (7h) · Churrasco + 9 Micro-ônibus</td>
+              <td class="num">R$ 171.784,00</td>
+            </tr>
+            <tr>
+              <td><strong>After Oficial</strong></td>
+              <td><strong>After no Mesmo Local</strong> · Espaço Pro Magno</td>
+              <td>264 convidados · Café da Manhã + Open Bar + 6 Ônibus</td>
+              <td class="num">R$ 134.674,24</td>
+            </tr>
+            <tr class="row-total">
+              <td colspan="3">INVESTIMENTO TOTAL NOS EVENTOS E EXPERIÊNCIAS</td>
+              <td class="num">R$ 3.252.055,58</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <div class="kpi-grid-4" style="margin-bottom:4px;">
+          <div class="kpi-card accent-gold">
+            <div class="kpi-val">R$ 3,59 mi</div>
+            <div class="kpi-lbl">Projeto Final (R$ 3.592.513,62)</div>
+          </div>
+          <div class="kpi-card accent-gold">
+            <div class="kpi-val">R$ 1,35 mi</div>
+            <div class="kpi-lbl">Receitas Extras (37,48%)</div>
+          </div>
+          <div class="kpi-card accent-gold">
+            <div class="kpi-val">R$ 9.358,89</div>
+            <div class="kpi-lbl">Valor por Formando (240)</div>
+          </div>
+          <div class="kpi-card accent-gold">
+            <div class="kpi-val">38x R$ 246,29</div>
+            <div class="kpi-lbl">Condição Final (50x s/ consulta)</div>
+          </div>
+        </div>
+        <div class="doc-footer">
+          <span><strong>KAZ FORMATURAS</strong> · EINSTEIN 29 · ENTROPIA</span>
+          <span>Página 2 de 7</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- PÁGINA 3: FULL JOURNEY & CRONOGRAMA DE MARCOS             -->
+  <!-- ========================================================= -->
+  <section class="a4-page">
+    <div class="moldura-a4-light"></div>
+    <div class="page-inner">
+      <div>
+        <div class="doc-header">
+          <div class="left">EINSTEIN 29 <span>/</span> PROPOSTA FINAL</div>
+          <div class="right">JORNADA COMPLETA &amp; CRONOGRAMA</div>
+        </div>
+
+        <div class="eyebrow">Narrativa &amp; Linha do Tempo</div>
+        <h2 class="sec-title">Full Journey: da Entropia ao Último Estado</h2>
+        <p class="sec-sub">Uma narrativa contínua para dar sentido a cada etapa dos 7 cursos até 2029.2.</p>
+
+        <div class="glass-gallery">
+          <div class="photo-strip-4">
+            <div class="photo-box">
+              <img src="./assets/bg_equinocio.webp" alt="Equinócio">
+              <span class="tag-pill">Capítulo I</span>
+              <div class="cap"><span>Equinócio</span><em>Meio</em></div>
+            </div>
+            <div class="photo-box">
+              <img src="./assets/bg_365.webp" alt="365º">
+              <span class="tag-pill">Capítulo II</span>
+              <div class="cap"><span>365º</span><em>Wet'n Wild</em></div>
+            </div>
+            <div class="photo-box">
+              <img src="./assets/bg_baile.webp" alt="O Último Estado">
+              <span class="tag-pill">Capítulo III</span>
+              <div class="cap"><span>O Último Estado</span><em>Baile</em></div>
+            </div>
+            <div class="photo-box">
+              <img src="./assets/bg_after.webp" alt="After">
+              <span class="tag-pill">Capítulo IV</span>
+              <div class="cap"><span>After Oficial</span><em>Amanhecer</em></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          Sete trajetórias diferentes que se encontraram no Einstein, dividiram o mesmo tempo e atravessaram mudanças. O conceito <strong>Entropia</strong> transforma a jornada até 2029.2 em quatro capítulos memoráveis: do equilíbrio exato do <strong>Equinócio</strong>, passando pela volta solar fora da lógica do <strong>365º</strong>, até a convergência absoluta de <strong>O Último Estado</strong> no Baile e o amanhecer no <strong>After</strong>.
+        </div>
+
+        <table class="ed-table">
+          <thead>
+            <tr>
+              <th style="width:18%;">Capítulo</th>
+              <th style="width:24%;">Cenário &amp; Escala</th>
+              <th>Conceito Curatorial &amp; Experiência</th>
+              <th class="num" style="width:16%;">Investimento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>EQUINÓCIO</strong><br><span style="color:var(--ink-muted); font-size:8px;">Meio Formando</span></td>
+              <td>Casa Maria Jardins<br><span style="color:var(--ink-muted); font-size:8px;">198 convidados · Noturno (7h)</span></td>
+              <td><em>O instante em que dois tempos se encontram.</em> Luz e escuridão na mesma medida entre o que ficou para trás e o que está por vir. Open bar com destilados e cenografia autoral.</td>
+              <td class="num"><strong>R$ 115.795,56</strong></td>
+            </tr>
+            <tr>
+              <td><strong>365º (360 + 5)</strong><br><span style="color:var(--ink-muted); font-size:8px;">Contagem Regressiva</span></td>
+              <td>Lagoon Beach Club (Wet'n Wild)<br><span style="color:var(--ink-muted); font-size:8px;">225 convidados · Diurno (7h)</span></td>
+              <td><em>Uma volta completa e cinco graus de sobra.</em> Sol, água, música, churrasco completo, kits exclusivos e 9 micro-ônibus dedicados para a turma.</td>
+              <td class="num"><strong>R$ 171.784,00</strong></td>
+            </tr>
+            <tr>
+              <td><strong>O ÚLTIMO ESTADO</strong><br><span style="color:var(--ink-muted); font-size:8px;">Grande Baile · 2029.2</span></td>
+              <td>Espaço Pro Magno (Térreo + Anexo)<br><span style="color:var(--ink-muted); font-size:8px;">4.200 convidados · 324 mesas</span></td>
+              <td><em>Tudo converge para um único instante.</em> 9.650 m² integrados com Túnel Museu, Teto Einstein, grande atração nacional (R$ 400 mil), Mag Gastronomia e Show Bar Super Premium.</td>
+              <td class="num"><strong>R$ 2.801.201,78</strong></td>
+            </tr>
+            <tr>
+              <td><strong>AFTER OFICIAL</strong><br><span style="color:var(--ink-muted); font-size:8px;">O Amanhecer</span></td>
+              <td>Espaço Pro Magno (Mesmo Local)<br><span style="color:var(--ink-muted); font-size:8px;">264 convidados · Manhã</span></td>
+              <td><em>A celebração continua sem deslocamento de local.</em> Café da manhã completo, Open Bar After, roleta de shots e 6 ônibus dedicados para retorno seguro.</td>
+              <td class="num"><strong>R$ 134.674,24</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="eyebrow" style="margin-top:8px;">Cronograma de Lançamento e Mobilização no Campus (Investimento: R$ 28.600,00)</div>
+        <div class="timeline-6">
+          <div class="t-step">
+            <div class="num-tag">Marco 01</div>
+            <div class="t-title">Agência &amp; Brandbook</div>
+            <div class="t-desc">Identidade Entropia Einstein 29.2 e universo visual para os 7 cursos.</div>
+          </div>
+          <div class="t-step">
+            <div class="num-tag">Marco 02</div>
+            <div class="t-title">Save the Date</div>
+            <div class="t-desc">Teaser digital, contagem regressiva e aquecimento da turma.</div>
+          </div>
+          <div class="t-step">
+            <div class="num-tag">Marco 03</div>
+            <div class="t-title">Ação Presencial</div>
+            <div class="t-desc"><strong>Cooking, Mooving e Sliders</strong> no campus.<br>Verba: <strong>R$ 12.000</strong>.</div>
+          </div>
+          <div class="t-step">
+            <div class="num-tag">Marco 04</div>
+            <div class="t-title">29 Kits Adesão</div>
+            <div class="t-desc">Kits especiais para impulsionar o lote inicial (R$ 200/un.).<br>Verba: <strong>R$ 5.800</strong>.</div>
+          </div>
+          <div class="t-step">
+            <div class="num-tag">Marco 05</div>
+            <div class="t-title">Lançamento Oficial</div>
+            <div class="t-desc">Live, brindes, materiais gráficos e experiência A&amp;B.<br>Verba: <strong>R$ 2.800</strong>.</div>
+          </div>
+          <div class="t-step">
+            <div class="num-tag">Marco 06</div>
+            <div class="t-title">Sorteios Contínuos</div>
+            <div class="t-desc">Campanha de engajamento e retenção até o baile.<br>Verba: <strong>R$ 8.000</strong>.</div>
+          </div>
+        </div>
+
+        <div class="callout gold" style="margin-top:6px;">
+          <div class="callout-title">Gestão Integrada KAZ ONE + Lojinha Oficial Entropia</div>
+          A comissão acompanha adesões, comunicação, arrecadação e execução em uma única plataforma digital, com emissão de QR Code de acesso e coleção exclusiva de produtos na lojinha da turma.
+        </div>
+      </div>
+
+      <div class="doc-footer">
+        <span><strong>KAZ FORMATURAS</strong> · EINSTEIN 29 · ENTROPIA</span>
+        <span>Página 3 de 7</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- PÁGINA 4: DOIS PRÉ-EVENTOS E AFTER                        -->
+  <!-- ========================================================= -->
+  <section class="a4-page">
+    <div class="moldura-a4-light"></div>
+    <div class="page-inner">
+      <div>
+        <div class="doc-header">
+          <div class="left">EINSTEIN 29 <span>/</span> PROPOSTA FINAL</div>
+          <div class="right">EXPERIÊNCIAS PRÉ-EVENTOS &amp; AFTER</div>
+        </div>
+
+        <div class="eyebrow">Camadas da História</div>
+        <h2 class="sec-title">Dois pré-eventos e um after épico</h2>
+        <p class="sec-sub">Três celebrações com personalidade própria para viver a jornada antes e depois do Grande Baile.</p>
+
+        <div class="glass-gallery">
+          <div class="photo-strip-3">
+            <div class="photo-box">
+              <img src="./assets/eq_casa-maria.webp" alt="Casa Maria Jardins">
+              <span class="tag-pill">Equinócio</span>
+              <div class="cap"><span>Casa Maria Jardins</span><em>198 Convidados</em></div>
+            </div>
+            <div class="photo-box">
+              <img src="./assets/v365_lagoon.webp" alt="Lagoon Beach Club Wet'n Wild">
+              <span class="tag-pill">365º</span>
+              <div class="cap"><span>Lagoon Beach Club</span><em>225 Convidados</em></div>
+            </div>
+            <div class="photo-box">
+              <img src="./assets/after_cafe.webp" alt="After Oficial no Pro Magno">
+              <span class="tag-pill">After Oficial</span>
+              <div class="cap"><span>Mesmo Local · Pro Magno</span><em>264 Convidados</em></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top:6px;">
+          <!-- Card Equinócio -->
+          <div class="event-card">
+            <div class="event-card-head eq">
+              <div class="tag">Meio Curso · Noturno (7h)</div>
+              <h3>Equinócio</h3>
+            </div>
+            <div class="event-card-body">
+              <div>
+                <p><strong>Local:</strong> Casa Maria Jardins (R$ 26.800)</p>
+                <p><strong>Escala:</strong> 198 convidados · Festa Noturna</p>
+                <p><strong>Gastronomia:</strong> Buffet completo de <strong>R$ 19.800,00</strong> (R$ 100/pax)</p>
+                <p><strong>Open Bar (R$ 17.526,96):</strong> Absolut, Absolut Flavours, Black Label, Jack Daniel's (Trad., Honey, Fire), Chivas, Beefeater, Bombay, Sagatiba, Montilla, Azuma Kirin, Red Bull, Heineken, Budweiser, Corote e Mix de Drinks.</p>
+                <p><strong>Cenografia &amp; Ativação:</strong> Decoração Personalizada (R$ 20.000) + Verba de Ativação (R$ 10.000).</p>
+                <p><strong>Som, Atração &amp; Staff:</strong> Verba Atração (R$ 5.000) + DJ + Som/Luz/Gerador (R$ 12.200) + Staff, Bombeiros, Ambulância e Seguro (R$ 9.468,60).</p>
+              </div>
+            </div>
+            <div class="event-card-foot">
+              <span>INVESTIMENTO</span>
+              <span>R$ 115.795,56</span>
+            </div>
+          </div>
+
+          <!-- Card 365º -->
+          <div class="event-card">
+            <div class="event-card-head v365">
+              <div class="tag">Faltam 365 Dias · Diurno (7h)</div>
+              <h3>365º (360 + 5)</h3>
+            </div>
+            <div class="event-card-body">
+              <div>
+                <p><strong>Local:</strong> Lagoon Beach Club · Wet'n Wild (R$ 33.000)</p>
+                <p><strong>Escala:</strong> 225 convidados · Sunset &amp; Pool</p>
+                <p><strong>Gastronomia:</strong> <strong>Churrasco Completo</strong> (R$ 12.375,00 · R$ 55/pax): 5 espetos (Carne, Frango, Kafta, Linguiça, Vegetariano), saladas, arroz, farofa, vinagrete e pão de alho.</p>
+                <p><strong>Open Bar (R$ 18.301,50):</strong> Absolut, Absolut Flavours, Beefeater, Bombay, Red Bull, Heineken, Stella, Corona, Azuma Kirin, Montilla, Sagatiba e Caipirinhas.</p>
+                <p><strong>Brindes &amp; Kits (R$ 19.350,00):</strong> Kit Comissão (24: Kodak descartável + Arminha de água) + Kit Formandos (225: Havaianas, Engov, Protetor, Trident e Ecobag).</p>
+                <p><strong>Transfer &amp; Produção:</strong> <strong>9 Micro-ônibus</strong> + Coordenação (R$ 38.950) + Decoração/Ativações (R$ 25.000) + Som/Luz/Atração (R$ 17.300).</p>
+              </div>
+            </div>
+            <div class="event-card-foot">
+              <span>INVESTIMENTO</span>
+              <span>R$ 171.784,00</span>
+            </div>
+          </div>
+
+          <!-- Card After -->
+          <div class="event-card">
+            <div class="event-card-head after">
+              <div class="tag">Amanhecer · Pós-Baile</div>
+              <h3>After Oficial</h3>
+            </div>
+            <div class="event-card-body">
+              <div>
+                <p><strong>Local:</strong> Espaço Pro Magno — Mesmo Local (R$ 63.200 c/ Ar e Reajuste)</p>
+                <p><strong>Escala:</strong> 264 convidados (Formandos + Comissão)</p>
+                <p><strong>Gastronomia:</strong> <strong>Café da Manhã Completo</strong> (R$ 17.160,00 · R$ 65/pax).</p>
+                <p><strong>Open Bar After (R$ 6.866,64):</strong> Absolut, Smirnoff, Gin Gordon's, Red Bull, Heineken, Stella Artois, Budweiser, Sagatiba, Montilla e Azuma Kirin.</p>
+                <p><strong>Cenografia &amp; Interação:</strong> Lounge (R$ 3.500) + Decoração (R$ 2.000) + Roleta de Shots (R$ 100).</p>
+                <p><strong>Produção &amp; Logística:</strong> 2 Geradores + Iluminação + Grades (R$ 14.200) + DJ e Rider Técnico (R$ 11.000) + <strong>6 Ônibus</strong> + Staff completo, Bombeiros e Ambulância (R$ 16.410).</p>
+              </div>
+            </div>
+            <div class="event-card-foot">
+              <span>INVESTIMENTO</span>
+              <span>R$ 134.674,24</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="eyebrow" style="margin-top:8px;">Síntese Comparativa das Três Experiências</div>
+        <table class="ed-table">
+          <thead>
+            <tr>
+              <th>Dimensão da Experiência</th>
+              <th class="num">Equinócio (Meio)</th>
+              <th class="num">365º (Wet'n Wild)</th>
+              <th class="num">After (Pro Magno)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Espaço &amp; Infraestrutura Dedicada</td>
+              <td class="num">R$ 26.800,00</td>
+              <td class="num">R$ 33.000,00</td>
+              <td class="num">R$ 63.200,00</td>
+            </tr>
+            <tr>
+              <td>Produção de Palco, Som, Luz &amp; Atrações</td>
+              <td class="num">R$ 12.200,00</td>
+              <td class="num">R$ 17.300,00</td>
+              <td class="num">R$ 25.200,00</td>
+            </tr>
+            <tr>
+              <td>Cenografia Autoral &amp; Ativações</td>
+              <td class="num">R$ 30.000,00</td>
+              <td class="num">R$ 25.000,00</td>
+              <td class="num">R$ 5.600,00</td>
+            </tr>
+            <tr>
+              <td>Gastronomia (Buffet / Churrasco / Café da Manhã)</td>
+              <td class="num">R$ 19.800,00</td>
+              <td class="num">R$ 12.375,00</td>
+              <td class="num">R$ 17.160,00</td>
+            </tr>
+            <tr>
+              <td>Show Bar &amp; Carta de Drinks</td>
+              <td class="num">R$ 17.526,96</td>
+              <td class="num">R$ 18.301,50</td>
+              <td class="num">R$ 6.866,64</td>
+            </tr>
+            <tr>
+              <td>Hospitalidade, Segurança, Médico &amp; Transfer</td>
+              <td class="num">R$ 9.468,60</td>
+              <td class="num">R$ 46.457,50</td>
+              <td class="num">R$ 16.647,60</td>
+            </tr>
+            <tr>
+              <td>Kits Exclusivos da Turma &amp; Comissão</td>
+              <td class="num">R$ 0,00</td>
+              <td class="num">R$ 19.350,00</td>
+              <td class="num">R$ 0,00</td>
+            </tr>
+            <tr class="row-total">
+              <td>INVESTIMENTO POR EVENTO</td>
+              <td class="num">R$ 115.795,56</td>
+              <td class="num">R$ 171.784,00</td>
+              <td class="num">R$ 134.674,24</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc-footer">
+        <span><strong>KAZ FORMATURAS</strong> · EINSTEIN 29 · ENTROPIA</span>
+        <span>Página 4 de 7</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- PÁGINA 5: BAILE — O ÚLTIMO ESTADO NO PRO MAGNO            -->
+  <!-- ========================================================= -->
+  <section class="a4-page">
+    <div class="moldura-a4-light"></div>
+    <div class="page-inner">
+      <div>
+        <div class="doc-header">
+          <div class="left">EINSTEIN 29 <span>/</span> PROPOSTA FINAL</div>
+          <div class="right">O ÚLTIMO ESTADO · ESPAÇO PRO MAGNO</div>
+        </div>
+
+        <div class="eyebrow">A Noite Principal · Espaço Pro Magno (Térreo + Anexo)</div>
+        <h2 class="sec-title">Baile: escala e experiência</h2>
+        <p class="sec-sub">O Último Estado em 9.650 m² integrados — onde todas as trajetórias ocupam o mesmo espaço.</p>
+
+        <div class="glass-gallery">
+          <div class="photo-strip-3">
+            <div class="photo-box">
+              <img src="./assets/baile_planta.webp" alt="Planta Pro Magno Térreo + Anexo">
+              <span class="tag-pill">Implantação</span>
+              <div class="cap"><span>Térreo + Anexo</span><em>324 Mesas</em></div>
+            </div>
+            <div class="photo-box">
+              <img src="./assets/baile_promagno.webp" alt="Cenografia Pro Magno">
+              <span class="tag-pill">Cenografia</span>
+              <div class="cap"><span>Teto Einstein &amp; Túnel</span><em>R$ 432 mil</em></div>
+            </div>
+            <div class="photo-box">
+              <img src="./assets/baile_entropia-completa.webp" alt="Palco e Show Bar">
+              <span class="tag-pill">Grande Show</span>
+              <div class="cap"><span>Atração Principal</span><em>R$ 400 mil</em></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kpi-grid-4">
+          <div class="kpi-card">
+            <div class="kpi-val">4.200</div>
+            <div class="kpi-lbl">Convidados Totais</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-val">324</div>
+            <div class="kpi-lbl">Mesas Redondas</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-val">960</div>
+            <div class="kpi-lbl">Convites Extras</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-val">60</div>
+            <div class="kpi-lbl">Mesas Extras</div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:5px;">
+          <div class="callout" style="margin:0;">
+            <div class="callout-title">Arquitetura Cenográfica Exclusiva (R$ 432.280,00)</div>
+            <ul class="ed-list" style="margin-bottom:0;">
+              <li><strong>Teto Einstein:</strong> R$ 60.000,00 + <strong>Decoração Aérea:</strong> R$ 60.000,00 (até 180 pontos aéreos).</li>
+              <li><strong>Túnel Museu:</strong> R$ 35.000,00 + <strong>Decoração Extra Personalizada:</strong> R$ 40.000,00.</li>
+              <li><strong>Lounges:</strong> R$ 35.000,00 + <strong>Palco:</strong> R$ 25.000,00 + <strong>Recepção:</strong> R$ 6.500,00 + <strong>Ambientalização:</strong> R$ 10.500,00.</li>
+              <li><strong>14 Pontos de Foto:</strong> R$ 28.000,00 + Fechamento Tecido (R$ 30 mil), Carpete (R$ 25 mil) e Piso Pista (R$ 6 mil).</li>
+              <li><strong>Mobiliário:</strong> 324 mesas redondas, toalhas lisas, 3.240 cadeiras Tiffany em resina estofadas e arranjos florais (R$ 90/un.).</li>
+            </ul>
+          </div>
+
+          <div class="callout" style="margin:0;">
+            <div class="callout-title">Gastronomia &amp; Show Bar Super Premium (7h)</div>
+            <ul class="ed-list" style="margin-bottom:0;">
+              <li><strong>Buffet Mag Gastronomia (R$ 705.600,00):</strong> Jantar 4.200 pax (R$ 567 mil), ilha de degustação, canapés, jantar completo, sobremesa, lanchinho da madrugada, mesa de café, Mobiliário (R$ 12.600), Seguro Quebra (R$ 12.600) e Reajuste (R$ 113.400).</li>
+              <li><strong>Show Bar 7 Horas (R$ 359.184,00):</strong>
+                <br>• <em>Vodkas:</em> Ciroc (R$ 29.064), Grey Goose (R$ 26.670), Absolut e Flavours.
+                <br>• <em>Whiskies &amp; Gins:</em> Black Label, Jack Daniel's, Chivas, Tanqueray, Bombay e Beefeater.
+                <br>• <em>Cervejas &amp; Energy:</em> Original 600ml na mesa (R$ 28.980) + Heineken, Stella e Budweiser no bar + Red Bull (R$ 37.548).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="eyebrow" style="margin-top:6px;">Pilares de Investimento da Grande Noite</div>
+        <table class="ed-table">
+          <thead>
+            <tr>
+              <th>Pilar do Baile</th>
+              <th>Curadoria de Entregas Inclusas</th>
+              <th class="num">Investimento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Espaço Pro Magno</strong></td>
+              <td>Térreo + Anexo integrados (R$ 260.839,50), Checkout/Avarias (R$ 25 mil), Reajuste Local (R$ 52.167,90), Ar-Condicionado (R$ 52.496), 180 Pontos Aéreos (R$ 8 mil) e Fundo Pós-Reforma (R$ 60 mil).</td>
+              <td class="num">R$ 458.503,40</td>
+            </tr>
+            <tr>
+              <td><strong>Tecnologia &amp; Ambiente</strong></td>
+              <td>4 Geradores (R$ 16 mil), Pista DMX (R$ 9 mil), Luz Ambiente (R$ 30 mil), Luz de Mesa 324 (R$ 9.720), 4 Telões + Edição (R$ 17.280), Palco (R$ 28.800), Camarins + Banheiros (R$ 8.600), Tendas (R$ 19.500), Elétrica/Gás (R$ 16 mil), QR Code (R$ 4.200), Genies (R$ 7.600), Som/Luz Palco (R$ 35 mil) e Divisória Acústica.</td>
+              <td class="num">R$ 229.035,00</td>
+            </tr>
+            <tr>
+              <td><strong>Arquitetura Cenográfica</strong></td>
+              <td>Teto Einstein, Decoração Aérea, Túnel Museu, Palco, Lounges, Decoração Extra, 14 Pontos de Foto, 324 Mesas, 3.240 Cadeiras Tiffany, Fechamento de Tecido, Carpete e Piso Pista.</td>
+              <td class="num">R$ 432.280,00</td>
+            </tr>
+            <tr>
+              <td><strong>Alta Gastronomia</strong></td>
+              <td>Buffet Mag Gastronomia para 4.200 convidados (R$ 567 mil), Mobiliário de Buffet, Seguro Quebra e Reajuste Contratual.</td>
+              <td class="num">R$ 705.600,00</td>
+            </tr>
+            <tr>
+              <td><strong>Palco &amp; Grande Atração</strong></td>
+              <td><strong>Verba de Atração Principal (R$ 400.000,00)</strong>, DJ (R$ 1.000), Painel de LED (R$ 9.500), Rider Camarim (R$ 5.800) e Efeitos Especiais CO₂/papel picado (R$ 5.500).</td>
+              <td class="num">R$ 421.800,00</td>
+            </tr>
+            <tr>
+              <td><strong>Show Bar Super Premium</strong></td>
+              <td>Operacional completo de bar por 7h (R$ 75.600), mix de drinks (R$ 10.500), copos (R$ 6.300) e carta Super Premium para 4.200 convidados.</td>
+              <td class="num">R$ 359.184,00</td>
+            </tr>
+            <tr>
+              <td><strong>Hospitalidade &amp; Segurança</strong></td>
+              <td>Staff (R$ 96.852: Coordenação, 33 Hostess, 21 Portaria, 105 Seguranças, Médico, Ambulâncias, Limpeza, 11 Bombeiros, Chapelaria Gratuita, MC, Montagem) + Licenças e Duplo Seguro RC (R$ 29.045,30).</td>
+              <td class="num">R$ 125.897,30</td>
+            </tr>
+            <tr>
+              <td><strong>Ativações &amp; Brindes</strong></td>
+              <td>Verba de Ativações (R$ 60.000,00) + 264 pares de Havaianas Originais Brancas personalizadas (R$ 8.902,08).</td>
+              <td class="num">R$ 68.902,08</td>
+            </tr>
+            <tr class="row-highlight">
+              <td colspan="2">INVESTIMENTO TOTAL NO GRANDE BAILE (O ÚLTIMO ESTADO)</td>
+              <td class="num">R$ 2.801.201,78</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc-footer">
+        <span><strong>KAZ FORMATURAS</strong> · EINSTEIN 29 · ENTROPIA</span>
+        <span>Página 5 de 7</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- PÁGINA 6: BENEFÍCIOS, COMISSÃO & GESTÃO INTEGRADA         -->
+  <!-- ========================================================= -->
+  <section class="a4-page">
+    <div class="moldura-a4-light"></div>
+    <div class="page-inner">
+      <div>
+        <div class="doc-header">
+          <div class="left">EINSTEIN 29 <span>/</span> PROPOSTA FINAL</div>
+          <div class="right">EXPERIÊNCIA DA COMISSÃO &amp; GOVERNANÇA</div>
+        </div>
+
+        <div class="eyebrow">Cuidado com a Turma &amp; Comissão</div>
+        <h2 class="sec-title">Benefícios e suporte à comissão</h2>
+        <p class="sec-sub">Vantagens exclusivas para os 24 representantes e tranquilidade jurídica e operacional do início ao fim.</p>
+
+        <div class="glass-gallery">
+          <div class="photo-strip-3">
+            <div class="photo-box">
+              <img src="./assets/v365_kit.webp" alt="Kits Exclusivos Einstein 29">
+              <span class="tag-pill">Identidade</span>
+              <div class="cap"><span>Kits Comissão &amp; Turma</span><em>Exclusivos</em></div>
+            </div>
+            <div class="photo-box">
+              <img src="./assets/lanc_cookies.webp" alt="Ação Presencial Cooking">
+              <span class="tag-pill">No Campus</span>
+              <div class="cap"><span>Cooking &amp; Ativações</span><em>Presencial</em></div>
+            </div>
+            <div class="photo-box">
+              <img src="./assets/lanc_sliders.webp" alt="Ação Presencial Sliders">
+              <span class="tag-pill">Engajamento</span>
+              <div class="cap"><span>Mooving &amp; Sliders</span><em>7 Cursos</em></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:6px;">
+          <div class="callout" style="margin:0; border-left-color:var(--ouro);">
+            <div class="callout-title">Diferenciais para os 24 Membros da Comissão</div>
+            <ul class="ed-list">
+              <li><strong>24 Cotas Estruturadas no Projeto:</strong> Dimensionamento completo para os 24 integrantes da comissão em brindes de Baile (264 pares de Havaianas) e acesso ao After (264 convidados).</li>
+              <li><strong>Kit Exclusivo Comissão no 365º:</strong> 24 kits exclusivos com Câmera Kodak descartável + Arminha de água (R$ 3.600,00 dedicados).</li>
+              <li><strong>Investimento Enjoy KAZ:</strong> Aporte direto de <strong>R$ 48.000,00</strong> no projeto, reduzindo imediatamente <strong>R$ 200,00</strong> por formando no saldo final.</li>
+              <li><strong>Desconto de Fechamento:</strong> Abatimento comercial adicional de <strong>R$ 12.960,00</strong> na assinatura da parceria.</li>
+            </ul>
+          </div>
+
+          <div class="callout" style="margin:0;">
+            <div class="callout-title">Gestão Integrada, Segurança &amp; Tecnologia KAZ</div>
+            <ul class="ed-list">
+              <li><strong>Plataforma KAZ ONE:</strong> Painel em tempo real de adesões, fluxo de caixa, lotes de convites/mesas extras e comunicação oficial.</li>
+              <li><strong>Controle de Acesso QR Code:</strong> Emissão nominal de convites digitais, equipe de portaria dedicada e validação antifraude nos 4 eventos.</li>
+              <li><strong>Blindagem Jurídica &amp; Documental:</strong> Seguro de Responsabilidade Civil integral cobrindo os 4 eventos (isentando a comissão), além de ECAD, ARTs de engenharia, CET e Alvará Temporário.</li>
+              <li><strong>Reconhecimento Facial &amp; Flexibilidade:</strong> Entrega rápida das fotos de cada formando e opção de parcelamento estendido (50x sob consulta).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="eyebrow" style="margin-top:8px;">Pilares de Governança e Dimensionamento do Projeto</div>
+        <table class="ed-table">
+          <thead>
+            <tr>
+              <th>Pilar do Projeto</th>
+              <th>Configuração Planejada</th>
+              <th>Benefício Direto para a Turma</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Integração dos 7 Cursos</strong></td>
+              <td>Biomedicina, Enfermagem, Eng. Biomédica, Fisioterapia, Med. Veterinária, Nutrição e Odontologia</td>
+              <td>Campanhas, pré-eventos e cenografia desenhados para unir todas as turmas 2029.2.</td>
+            </tr>
+            <tr>
+              <td><strong>Dimensionamento da Turma</strong></td>
+              <td>240 Formandos Pagantes + 24 Membros de Comissão</td>
+              <td>264 participantes contemplados nos kits, brindes e After Oficial.</td>
+            </tr>
+            <tr>
+              <td><strong>Pacote-Base Individual</strong></td>
+              <td>1 Mesa Redonda (10 lugares) + 10 Convites (Formando + 9)</td>
+              <td>Conforto garantido no Pro Magno, somado a 960 convites e 60 mesas extras para ampliar a festa.</td>
+            </tr>
+            <tr>
+              <td><strong>Fee Administrativo Reduzido</strong></td>
+              <td>Taxa de 10% (R$ 325.205,56) menos Enjoy (R$ 48 mil) e Desconto (R$ 12.960)</td>
+              <td><strong>Fee Efetivo final de apenas 8,13%</strong> (R$ 264.245,56) sobre os eventos.</td>
+            </tr>
+            <tr>
+              <td><strong>Transparência Fiscal &amp; Meios</strong></td>
+              <td>Imposto s/ Taxa Adm. (R$ 63.252,48) + Gestão de Arrecadação (R$ 12.960,00)</td>
+              <td>Previsibilidade total, sem custos ocultos para a comissão ou formandos.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout gold" style="margin-top:8px;">
+          <div class="callout-title">Compromisso de Curadoria e Execução</div>
+          Cuidar de cada detalhe ao lado da Comissão Einstein 29 — da primeira ação no campus ao café da manhã do After — garantindo transparência financeira e fidelidade absoluta ao conceito <strong>Entropia</strong>.
+        </div>
+      </div>
+
+      <div class="doc-footer">
+        <span><strong>KAZ FORMATURAS</strong> · EINSTEIN 29 · ENTROPIA</span>
+        <span>Página 6 de 7</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- PÁGINA 7: CONDIÇÃO FINAL, LOTES EXTRAS & PRÓXIMOS PASSOS  -->
+  <!-- ========================================================= -->
+  <section class="a4-page">
+    <div class="moldura-a4-light"></div>
+    <div class="page-inner">
+      <div>
+        <div class="doc-header">
+          <div class="left">EINSTEIN 29 <span>/</span> PROPOSTA FINAL</div>
+          <div class="right">CONDIÇÃO FINAL &amp; DECISÃO</div>
+        </div>
+
+        <div class="eyebrow">Síntese para Decisão Final</div>
+        <h2 class="sec-title">Condição final e próximos passos</h2>
+        <p class="sec-sub">O equilíbrio financeiro que viabiliza quatro grandes eventos e reduz o investimento individual em 37,48%.</p>
+
+        <table class="ed-table">
+          <thead>
+            <tr>
+              <th>Estrutura Financeira Consolidada</th>
+              <th class="num">Valor Consolidado</th>
+              <th>Impacto na Viabilidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Investimento Total nos Eventos (Baile + MKT + Equinócio + 365º + After)</td>
+              <td class="num">R$ 3.252.055,58</td>
+              <td>100% da entrega artística, gastronômica e cenográfica</td>
+            </tr>
+            <tr>
+              <td>(+) Taxa Administrativa Líquida (Fee Efetivo 8,13%)</td>
+              <td class="num">R$ 264.245,56</td>
+              <td>Taxa 10% (R$ 325.205,56) - Enjoy (R$ 48 mil) - Desconto (R$ 12.960)</td>
+            </tr>
+            <tr>
+              <td>(+) Imposto s/ Taxa Adm. (R$ 63.252,48) + Arrecadação (R$ 12.960,00)</td>
+              <td class="num">R$ 76.212,48</td>
+              <td>Tributação e gestão individual de pagamentos</td>
+            </tr>
+            <tr class="row-total">
+              <td>VALOR FINAL DO PROJETO</td>
+              <td class="num">R$ 3.592.513,62</td>
+              <td>Escopo integral garantido</td>
+            </tr>
+            <tr>
+              <td>(-) Receita com Convites Extras (960 unidades em 4 lotes)</td>
+              <td class="num">R$ 821.440,00</td>
+              <td>De R$ 799,00 (Lote 1) a R$ 879,00 (Lote 4)</td>
+            </tr>
+            <tr>
+              <td>(-) Receita com Mesas Extras (60 unidades em 4 lotes)</td>
+              <td class="num">R$ 524.940,00</td>
+              <td>De R$ 8.399,00 (Lote 1) a R$ 8.999,00 (Lote 4)</td>
+            </tr>
+            <tr class="row-total">
+              <td>(=) TOTAL DE RECEITAS EXTRAS PLANEJADAS</td>
+              <td class="num">R$ 1.346.380,00</td>
+              <td>Abate 37,48% do valor total do projeto</td>
+            </tr>
+            <tr class="row-highlight">
+              <td>SALDO LÍQUIDO PARA OS 240 FORMANDOS</td>
+              <td class="num">R$ 2.246.133,62</td>
+              <td>Base para o plano de adesão individual</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="grid-2" style="margin-top:6px;">
+          <div>
+            <div class="eyebrow">Planejamento · Convites Extras (960 un.)</div>
+            <table class="ed-table">
+              <thead>
+                <tr>
+                  <th>Lote</th>
+                  <th class="num">Qtd</th>
+                  <th class="num">Unitário</th>
+                  <th class="num">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Lote 1</td><td class="num">100</td><td class="num">R$ 799,00</td><td class="num">R$ 79.900,00</td></tr>
+                <tr><td>Lote 2</td><td class="num">240</td><td class="num">R$ 839,00</td><td class="num">R$ 201.360,00</td></tr>
+                <tr><td>Lote 3</td><td class="num">240</td><td class="num">R$ 859,00</td><td class="num">R$ 206.160,00</td></tr>
+                <tr><td>Lote 4</td><td class="num">380</td><td class="num">R$ 879,00</td><td class="num">R$ 334.020,00</td></tr>
+                <tr class="row-total"><td>Total</td><td class="num">960</td><td class="num">—</td><td class="num">R$ 821.440,00</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <div class="eyebrow">Planejamento · Mesas Extras (60 un.)</div>
+            <table class="ed-table">
+              <thead>
+                <tr>
+                  <th>Lote</th>
+                  <th class="num">Qtd</th>
+                  <th class="num">Unitário</th>
+                  <th class="num">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Lote 1</td><td class="num">10</td><td class="num">R$ 8.399,00</td><td class="num">R$ 83.990,00</td></tr>
+                <tr><td>Lote 2</td><td class="num">15</td><td class="num">R$ 8.599,00</td><td class="num">R$ 128.985,00</td></tr>
+                <tr><td>Lote 3</td><td class="num">15</td><td class="num">R$ 8.799,00</td><td class="num">R$ 131.985,00</td></tr>
+                <tr><td>Lote 4</td><td class="num">20</td><td class="num">R$ 8.999,00</td><td class="num">R$ 179.980,00</td></tr>
+                <tr class="row-total"><td>Total</td><td class="num">60</td><td class="num">—</td><td class="num">R$ 524.940,00</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:6px;">
+          <div class="kpi-card accent-gold" style="padding:10px 12px;">
+            <div class="kpi-lbl" style="margin-bottom:3px;">Investimento Final por Formando (Base 240)</div>
+            <div class="kpi-val" style="font-size:26px;">R$ 9.358,89</div>
+            <div style="font-size:8px; color:var(--gelo); margin-top:2px;">1 Mesa Redonda + 10 Convites + Pré-Eventos + After</div>
+          </div>
+          <div class="kpi-card accent-gold" style="padding:10px 12px;">
+            <div class="kpi-lbl" style="margin-bottom:3px;">Plano de Parcelamento Mensal</div>
+            <div class="kpi-val" style="font-size:26px;">38x R$ 246,29</div>
+            <div style="font-size:8px; color:var(--gelo); margin-top:2px;">Opção estendida em 50 parcelas sob consulta</div>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top:6px;">
+          <div class="callout-title">Próximos Passos para Começarmos</div>
+          <strong>1. Aprovação</strong> do projeto final com a Comissão Einstein 29. &nbsp;|&nbsp;
+          <strong>2. Assinatura</strong> da parceria com garantia dos benefícios e descontos. &nbsp;|&nbsp;
+          <strong>3. Partida imediata</strong> do cronograma de lançamento Entropia no campus.
+        </div>
+      </div>
+
+      <div style="background:var(--noite-deep); color:#f2f5fa; padding:9px 14px; border-radius:4px; display:flex; align-items:center; justify-content:space-between;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <img src="./assets/kaz-logo-branco.svg" alt="KAZ" style="height:19px;">
+          <div style="width:1px; height:20px; background:rgba(201,214,230,0.3);"></div>
+          <img src="./assets/logo-branco.webp" alt="Entropia" style="height:23px;">
+        </div>
+        <div style="text-align:right; font-size:8px; color:var(--gelo); letter-spacing:0.08em; text-transform:uppercase;">
+          @kaz.formaturas · kazformaturas.com · <strong>Página 7 de 7</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div>
+
+  <script>
+    function exportToWord() {
+      const content = document.getElementById('doc-root').innerHTML;
+      const html = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office"
+              xmlns:w="urn:schemas-microsoft-com:office:word"
+              xmlns="http://www.w3.org/TR/REC-html40">
+        <head><meta charset="utf-8"><title>Proposta Final Einstein 29</title></head>
+        <body>${content}</body></html>`;
+      const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'PROPOSTA_FINAL_EINSTEIN_29.doc';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
