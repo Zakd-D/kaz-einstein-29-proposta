@@ -5,3 +5,4 @@ services:
     buildCommand: ""
     staticPublishPath: .
     pullRequestPreviewsEnabled: false
+

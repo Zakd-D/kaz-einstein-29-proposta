@@ -563,9 +563,172 @@
       height: 70px;
       background: linear-gradient(transparent, rgba(234, 241, 251, 0.55), transparent);
     }
+
+    /* Prepantalla con Senha (6169) y Fondo Difuminado */
+    body.locked {
+      overflow: hidden !important;
+    }
+    body.locked > *:not(#auth-gate) {
+      filter: blur(22px) saturate(1.15);
+      transform: scale(1.01);
+      pointer-events: none !important;
+      user-select: none !important;
+      transition: filter 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s ease;
+    }
+    body:not(.locked) > *:not(#auth-gate) {
+      filter: blur(0);
+      transform: scale(1);
+      transition: filter 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s ease;
+    }
+    #auth-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: radial-gradient(circle at 50% 35%, rgba(4, 21, 61, 0.48) 0%, rgba(2, 11, 38, 0.78) 100%);
+      backdrop-filter: blur(26px);
+      -webkit-backdrop-filter: blur(26px);
+      transition: opacity 0.55s ease, visibility 0.55s ease;
+    }
+    #auth-gate.unlocked {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .gate-card {
+      width: min(420px, 92vw);
+      background: linear-gradient(145deg, rgba(10, 31, 77, 0.78) 0%, rgba(2, 11, 38, 0.9) 100%);
+      border: 1px solid rgba(201, 214, 230, 0.28);
+      border-top: 2px solid var(--ouro);
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      border-radius: 18px;
+      padding: 36px 28px 30px 28px;
+      text-align: center;
+      color: var(--ink);
+    }
+    .gate-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .gate-logos img.k-logo { height: 22px; }
+    .gate-logos img.e-logo { height: 48px; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.45)); }
+    .gate-logos .g-sep {
+      width: 1px;
+      height: 34px;
+      background: linear-gradient(transparent, rgba(201, 214, 230, 0.45), transparent);
+    }
+    .gate-eyebrow {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ouro);
+      margin-bottom: 6px;
+    }
+    .gate-title {
+      font-family: var(--disp);
+      font-size: 34px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin: 0 0 6px 0;
+      color: #ffffff;
+      line-height: 0.98;
+    }
+    .gate-sub {
+      font-family: var(--edit);
+      font-style: italic;
+      font-size: 18px;
+      color: var(--acc);
+      margin: 0 0 22px 0;
+    }
+    .pin-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .pin-digit {
+      width: 54px;
+      height: 62px;
+      border-radius: 10px;
+      border: 1px solid rgba(201, 214, 230, 0.32);
+      background: rgba(2, 11, 38, 0.68);
+      color: #ffffff;
+      font-family: var(--disp);
+      font-size: 28px;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .pin-digit:focus {
+      border-color: var(--ouro);
+      box-shadow: 0 0 0 3px rgba(226, 178, 92, 0.25);
+      transform: translateY(-1px);
+    }
+    .gate-btn {
+      width: 100%;
+      padding: 13px 18px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--ouro) 0%, #f2c46d 100%);
+      color: #020b26;
+      font-family: var(--body);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: filter 0.2s, transform 0.15s;
+    }
+    .gate-btn:hover { filter: brightness(1.06); }
+    .gate-error {
+      min-height: 18px;
+      margin-top: 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #ff8a8a;
+      letter-spacing: 0.04em;
+    }
+    @keyframes gateShake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+    .gate-card.shake {
+      animation: gateShake 0.38s ease;
+    }
   </style>
 </head>
-<body>
+<body class="locked">
+
+  <!-- PREPANTALLA CON SENHA (6169) -->
+  <div id="auth-gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <form class="gate-card" id="gateForm" onsubmit="return checkGatePin(event)">
+      <div class="gate-logos">
+        <img class="k-logo" src="./assets/kaz-logo-branco.svg" alt="Kaz Formaturas" />
+        <div class="g-sep" aria-hidden="true"></div>
+        <img class="e-logo" src="./assets/logo-branco.webp" alt="Entropia Einstein 29" />
+      </div>
+      <div class="gate-eyebrow">Acesso Exclusivo · Comissão</div>
+      <h2 class="gate-title" id="gateTitle">Einstein 29</h2>
+      <p class="gate-sub">Digite a senha de 4 dígitos para acessar a proposta</p>
+      <div class="pin-row">
+        <input type="password" inputmode="numeric" maxlength="1" class="pin-digit" aria-label="Dígito 1" required autofocus />
+        <input type="password" inputmode="numeric" maxlength="1" class="pin-digit" aria-label="Dígito 2" required />
+        <input type="password" inputmode="numeric" maxlength="1" class="pin-digit" aria-label="Dígito 3" required />
+        <input type="password" inputmode="numeric" maxlength="1" class="pin-digit" aria-label="Dígito 4" required />
+      </div>
+      <button type="submit" class="gate-btn">Acessar Proposta Final</button>
+      <div class="gate-error" id="gateError" aria-live="polite"></div>
+    </form>
+  </div>
 
   <div class="moldura" aria-hidden="true"></div>
   <p class="lateral esq" aria-hidden="true">Entropia · <b>Einstein 29</b> · Proposta Kaz Formaturas</p>
@@ -920,5 +1083,77 @@
     </p>
   </footer>
 
+  <script>
+    (function() {
+      const CORRECT_PIN = '6169';
+      const gate = document.getElementById('auth-gate');
+      const card = document.getElementById('gateForm');
+      const err = document.getElementById('gateError');
+      const digits = Array.from(document.querySelectorAll('.pin-digit'));
+
+      function unlockPage() {
+        document.body.classList.remove('locked');
+        gate.classList.add('unlocked');
+        try { sessionStorage.setItem('e29_auth_unlocked', '1'); } catch (e) {}
+      }
+
+      try {
+        if (sessionStorage.getItem('e29_auth_unlocked') === '1') {
+          unlockPage();
+        }
+      } catch (e) {}
+
+      digits.forEach((input, idx) => {
+        input.addEventListener('input', (e) => {
+          err.textContent = '';
+          const val = e.target.value.replace(/\D/g, '');
+          e.target.value = val.slice(-1);
+          if (val && idx < digits.length - 1) {
+            digits[idx + 1].focus();
+            digits[idx + 1].select();
+          }
+          const code = digits.map(d => d.value).join('');
+          if (code.length === 4) {
+            validateCode(code);
+          }
+        });
+
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !input.value && idx > 0) {
+            digits[idx - 1].focus();
+          }
+        });
+
+        input.addEventListener('paste', (e) => {
+          const pasted = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 4);
+          if (pasted) {
+            e.preventDefault();
+            pasted.split('').forEach((ch, i) => { if (digits[i]) digits[i].value = ch; });
+            if (pasted.length === 4) validateCode(pasted);
+          }
+        });
+      });
+
+      function validateCode(code) {
+        if (code === CORRECT_PIN) {
+          unlockPage();
+        } else {
+          err.textContent = 'Senha incorreta. Tente novamente.';
+          card.classList.remove('shake');
+          void card.offsetWidth;
+          card.classList.add('shake');
+          digits.forEach(d => d.value = '');
+          digits[0].focus();
+        }
+      }
+
+      window.checkGatePin = function(e) {
+        e.preventDefault();
+        const code = digits.map(d => d.value).join('');
+        validateCode(code);
+        return false;
+      };
+    })();
+  </script>
 </body>
 </html>
