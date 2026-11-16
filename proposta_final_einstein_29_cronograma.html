@@ -326,6 +326,19 @@
     .page-benef-dark .doc-footer { color: rgba(201, 214, 230, 0.72); border-top-color: rgba(201, 214, 230, 0.22); }
     .page-benef-dark .bento-tile { border-color: rgba(255, 255, 255, 0.2); }
     .page-benef-dark .eyebrow { color: var(--ouro); }
+    .catalog { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin: 6px 0 4px; }
+    .cat-card { position: relative; background: #E7E4E5; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 18px rgba(0,0,0,.28); }
+    .cat-card .ph { position: relative; height: 30mm; overflow: hidden; }
+    .cat-card .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cat-card .spark { position: absolute; top: 5px; right: 6px; font-size: 9px; color: #7fd4e8; text-shadow: 0 0 6px rgba(127,212,232,.9); }
+    .cat-card .spark.lav { color: #c9b6ef; text-shadow: 0 0 6px rgba(201,182,239,.9); }
+    .cat-card .lb { background: #6D69A0; color: #fff; padding: 4px 7px; }
+    .cat-card .lb .t { font-size: 7.6px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; line-height: 1.15; }
+    .cat-card .lb .d { font-size: 6.2px; color: #e6e2f2; margin-top: 1px; }
+    .mais { display: flex; align-items: center; gap: 6px; margin: 2px 0 6px; }
+    .mais .linha { flex: 1; height: 1px; background: #6D69A0; }
+    .mais .txt { font-size: 7.4px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #a9a2d8; white-space: nowrap; }
+
     .bento-big { grid-column: span 2; grid-row: span 2; }
     .bento-big .glass .t { font-size: 9.5px; }
     .bento-big .glass .d { font-size: 7.4px; }
@@ -1622,16 +1635,29 @@
         <h2 class="sec-title">Benefícios e suporte à comissão</h2>
         <p class="sec-sub">Atendimento exclusivo e próximo, do início ao fim, por toda a equipe KAZ.</p>
 
-        <div class="bento">
-            <div class="bento-tile bento-big"><img src="./assets/benef_01.jpg" alt="Pacote de formatura"><div class="veil"></div><div class="glass"><div class="t">Pacote de formatura</div><div class="d">1 mesa + 10 convites · igual ao formando</div></div></div>
-            <div class="bento-tile "><img src="./assets/benef_02.jpg" alt="Convites"><div class="veil"></div><div class="glass"><div class="t">Convites</div><div class="d">Bailes e pré-eventos KAZ</div></div></div>
-            <div class="bento-tile "><img src="./assets/benef_03.jpg" alt="Chandon na mesa"><div class="veil"></div><div class="glass"><div class="t">Chandon na mesa</div><div class="d">1 por integrante</div></div></div>
-            <div class="bento-tile "><img src="./assets/benef_04.jpg" alt="Galleria"><div class="veil"></div><div class="glass"><div class="t">Galleria</div><div class="d">Comemoração KAZ</div></div></div>
-            <div class="bento-tile "><img src="./assets/benef_05.jpg" alt="R$ 1.720"><div class="veil"></div><div class="glass"><div class="t">R$ 1.720</div><div class="d">Crédito em produtos fotográficos</div></div></div>
-            <div class="bento-tile "><img src="./assets/benef_06.jpg" alt="Passaporte Levels"><div class="veil"></div><div class="glass"><div class="t">Passaporte Levels</div><div class="d">Grupo Levels</div></div></div>
-            <div class="bento-tile "><img src="./assets/benef_07.jpg" alt="Mesa extra"><div class="veil"></div><div class="glass"><div class="t">Mesa extra</div><div class="d">Lote comissão a preço de custo</div></div></div>
-            <div class="bento-tile "><img src="./assets/benef_08.jpg" alt="Retronejo"><div class="veil"></div><div class="glass"><div class="t">Retronejo</div><div class="d">Ingresso bônus</div></div></div>
-            <div class="bento-tile "><img src="./assets/benef_09.jpg" alt="Einstein 28"><div class="veil"></div><div class="glass"><div class="t">Einstein 28</div><div class="d">1 convite para a formatura</div></div></div>
+        <div class="catalog">
+          <div class="cat-card">
+            <div class="ph"><img src="./assets/benef_01.jpg" alt="PACOTE DE FORMATURA"><span class="spark ">✦</span></div>
+            <div class="lb"><div class="t">PACOTE DE FORMATURA</div><div class="d">Pacote de formatura · 1 mesa + 10 convites</div></div>
+          </div>
+          <div class="cat-card">
+            <div class="ph"><img src="./assets/benef_02.jpg" alt="CONVITES"><span class="spark lav">✦</span></div>
+            <div class="lb"><div class="t">CONVITES</div><div class="d">Convites em bailes e pré-eventos KAZ</div></div>
+          </div>
+          <div class="cat-card">
+            <div class="ph"><img src="./assets/benef_03.jpg" alt="CHANDON NA MESA"><span class="spark ">✦</span></div>
+            <div class="lb"><div class="t">CHANDON NA MESA</div><div class="d">Chandon na mesa · 1 por integrante</div></div>
+          </div>
+          <div class="cat-card">
+            <div class="ph"><img src="./assets/benef_05.jpg" alt="CRÉDITO FOTOGRÁFICO"><span class="spark lav">✦</span></div>
+            <div class="lb"><div class="t">CRÉDITO FOTOGRÁFICO</div><div class="d">R$ 1.720 de crédito em produtos fotográficos</div></div>
+          </div>
+        </div>
+
+        <div class="mais">
+          <span class="txt">E muito mais</span>
+          <span class="linha"></span>
+          <span class="txt" style="font-weight:600; letter-spacing:.04em; text-transform:none; color:#c9d6e6;">Galleria · Passaporte Levels · Mesa extra a preço de custo · Retronejo · Einstein 28</span>
         </div>
 
         <div class="chips">
