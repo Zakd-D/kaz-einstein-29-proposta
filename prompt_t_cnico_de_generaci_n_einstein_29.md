@@ -8,14 +8,6 @@ Copia y utiliza el siguiente prompt técnico si deseas alimentar una IA de dise�
 ACTÚA COMO UN DIRECTOR DE ARTE EDITORIAL Y ARQUITECTO DE DOCUMENTOS EJECUTIVOS.
 Tu objetivo es generar un documento de propuesta comercial en formato A4 vertical (7 páginas) para "KAZ FORMATURAS - EINSTEIN 29", siguiendo exactamente la estructura visual, jerarquía tipográfica y narrativa de la propuesta de referencia "MAUÁ 27", pero utilizando exclusivamente los datos técnicos y financieros reales de la Proposta Nº 36554 (Faculdade Israelita de Ciências da Saúde Albert Einstein - Conclusão 2029.2).
 
-### 0. REGLA OBLIGATORIA — IDENTIDAD DEL CONSULTOR (NO NEGOCIABLE)
-- El nombre **Felippe Rodrigues Mancuzo** debe aparecer escrito con esa grafía exacta en el documento generado. Sin abreviar, sin iniciales, sin traducir.
-- Debe figurar en **cuatro lugares**: (1) los metadatos de la portada, como *Consultor Responsável*; (2) el **pie de página de todas y cada una** de las páginas, junto a "KAZ ONE / Gestão Integrada" y el número de propuesta; (3) el **bloque de cierre o firma** de la última página; (4) los **metadatos del archivo PDF** (autor).
-- **Prohibido sustituirlo** por "KAZ", "KAZ One", "Equipe KAZ", "nosotros" o cualquier variante. La marca es KAZ; el consultor responsable es una persona con nombre y apellido.
-- Si el diseño no deja espacio en el pie, reducir el cuerpo del pie antes que omitir el nombre.
-- Antes de entregar, verificar: buscar "Felippe" en el documento final y confirmar que aparece al menos cuatro veces, una por página como mínimo.
-
-
 ### 1. DIRECTRICES DE ESTILO Y DISEÑO (SISTEMA VISUAL)
 - Formato: Páginas A4 (210mm x 297mm), diseño editorial de lujo tipo galería/museo moderno ("Túnel Museu" & "Teto Einstein").
 - Paleta de colores:
@@ -30,8 +22,7 @@ Tu objetivo es generar un documento de propuesta comercial en formato A4 vertica
 - Header: KAZ ONE / GESTÃO INTEGRADA
 - Título Principal: PROPOSTA FINAL — EINSTEIN 29
 - Subtítulo: Da Ciência à Celebração · Uma Galeria de Conquistas
-- Metadatos inferiores: PROPOSTA 36554 | Faculdade Israelita de Ciências da Saúde Albert Einstein | Conclusão 2029.2 | Data: 15/11/2026 | **Consultor Responsável: Felippe Rodrigues Mancuzo** (obligatorio, visible, no opcional).
-- Pie de página de esta y de todas las páginas: KAZ ONE / Gestão Integrada · Proposta 36554 · Felippe Rodrigues Mancuzo.
+- Metadatos inferiores: PROPOSTA 36554 | Faculdade Israelita de Ciências da Saúde Albert Einstein | Conclusão 2029.2 | Data: 15/11/2026 | Consultor: Felippe Rodrigues Mancuzo.
 - Cursos incluidos: Biomedicina, Enfermagem, Engenharia Biomédica, Fisioterapia, Medicina Veterinária, Nutrição e Odontologia.
 
 [PÁGINA 2 - A PROPOSTA EM UMA PÁGINA (VISÃO EXECUTIVA)]
@@ -106,6 +97,4 @@ Tu objetivo es generar un documento de propuesta comercial en formato A4 vertica
   - Receitas Extras Totais: R$ 1.346.380,00 (37,48% do projeto)
   - Saldo dos Formandos (240 adesões): R$ 2.246.133,62
 - Destaque Final: R$ 9.358,89 POR FORMANDO | 38x R$ 246,29 (50x sob consulta).
-- **Bloque de cierre con firma obligatoria:** Felippe Rodrigues Mancuzo — Consultor Responsável — KAZ ONE / Gestão Integrada — Proposta Nº 36554 — 15/11/2026. Sin este bloque el documento se considera incompleto.
-- **CHECKLIST DE ENTREGA:** el nombre "Felippe Rodrigues Mancuzo" aparece en la portada, en el pie de las 7 páginas, en el cierre y en los metadatos del PDF.
 ```
