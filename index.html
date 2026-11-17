@@ -654,6 +654,30 @@
       gap: 10px;
       margin-bottom: 18px;
     }
+    .gate-field { display: block; margin: 0 0 10px; }
+    .gate-field input {
+      width: 100%;
+      box-sizing: border-box;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(201, 214, 230, 0.30);
+      border-radius: 10px;
+      color: #f2f5fa;
+      font-family: inherit;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      padding: 11px 13px;
+      outline: none;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .gate-field input::placeholder { color: rgba(201, 214, 230, 0.55); }
+    .gate-field input:focus { border-color: var(--ouro); background: rgba(255, 255, 255, 0.12); }
+    .gate-hint {
+      font-size: 9.5px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(201, 214, 230, 0.55);
+      margin: 12px 0 6px;
+    }
     .pin-digit {
       width: 54px;
       height: 62px;
@@ -718,7 +742,14 @@
       </div>
       <div class="gate-eyebrow">Acesso Exclusivo · Comissão</div>
       <h2 class="gate-title" id="gateTitle">Einstein 29</h2>
-      <p class="gate-sub">Digite a senha de 4 dígitos para acessar a proposta</p>
+      <p class="gate-sub">Identifique-se e digite a senha de 4 dígitos para acessar a proposta</p>
+      <div class="gate-field">
+        <input id="gateName" type="text" autocomplete="name" placeholder="Seu nome completo" maxlength="60" required />
+      </div>
+      <div class="gate-field">
+        <input id="gateContact" type="tel" autocomplete="tel" placeholder="WhatsApp (opcional)" maxlength="20" />
+      </div>
+      <p class="gate-hint">Senha de acesso</p>
       <div class="pin-row">
         <input type="password" inputmode="numeric" maxlength="1" class="pin-digit" aria-label="Dígito 1" required autofocus />
         <input type="password" inputmode="numeric" maxlength="1" class="pin-digit" aria-label="Dígito 2" required />
@@ -1090,6 +1121,45 @@
       const card = document.getElementById('gateForm');
       const err = document.getElementById('gateError');
       const digits = Array.from(document.querySelectorAll('.pin-digit'));
+      const nameInput = document.getElementById('gateName');
+      const contactInput = document.getElementById('gateContact');
+
+      /*
+        REGISTRO DE ACESSO
+        - O registro fica SOMENTE no navegador de quem abriu (localStorage).
+        - Não existe base de dados pública neste site: nada de .json/.csv no repositório.
+        - Para receber os acessos no escritório, preencha REGISTRY_ENDPOINT com um
+          endpoint privado (Google Apps Script ligado a uma planilha fechada, ou um
+          backend próprio). Nunca aponte para um arquivo estático do site.
+      */
+      const REGISTRY_ENDPOINT = '';
+      const REGISTRY_KEY = 'e29_registry';
+
+      function registrarAcesso(nome, contato) {
+        const registro = {
+          nome: nome,
+          contato: contato || '',
+          ts: new Date().toISOString(),
+          pagina: location.pathname
+        };
+        try {
+          const atual = JSON.parse(localStorage.getItem(REGISTRY_KEY) || '[]');
+          atual.push(registro);
+          localStorage.setItem(REGISTRY_KEY, JSON.stringify(atual));
+        } catch (e) {}
+        if (REGISTRY_ENDPOINT) {
+          try {
+            fetch(REGISTRY_ENDPOINT, {
+              method: 'POST',
+              mode: 'no-cors',
+              keepalive: true,
+              headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+              body: JSON.stringify(registro)
+            });
+          } catch (e) {}
+        }
+        return registro;
+      }
 
       function unlockPage() {
         document.body.classList.remove('locked');
@@ -1136,6 +1206,14 @@
 
       function validateCode(code) {
         if (code === CORRECT_PIN) {
+          const nome = (nameInput && nameInput.value || '').trim();
+          if (nome.length < 3) {
+            err.textContent = 'Informe seu nome para registrar o acesso.';
+            if (nameInput) nameInput.focus();
+            digits.forEach(d => d.value = '');
+            return;
+          }
+          registrarAcesso(nome, (contactInput && contactInput.value || '').trim());
           unlockPage();
         } else {
           err.textContent = 'Senha incorreta. Tente novamente.';
