@@ -11,7 +11,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import https from 'node:https';
+
 const PORTA = 8787;
+const ARQ_NOTIF = '_interno/notificacoes.json';
 const AQUI = path.dirname(fileURLToPath(import.meta.url));
 const PASTA = path.join(AQUI, '_registros');
 const CSV = path.join(PASTA, 'acessos.csv');
@@ -30,6 +33,51 @@ function limpar(v) {
   return String(v ?? '').replace(/[;\r\n]+/g, ' ').trim().slice(0, 120);
 }
 
+function destinatarios() {
+  try {
+    const bruto = fs.readFileSync(path.join(AQUI, ARQ_NOTIF), 'utf8');
+    return JSON.parse(bruto);
+  } catch {
+    return [];
+  }
+}
+
+function avisarTelegram(dest, texto) {
+  const caminho = `/bot${dest.token}/sendMessage`;
+  const corpo = JSON.stringify({ chat_id: dest.chats[0], text: texto, disable_web_page_preview: true });
+  return new Promise((resolve) => {
+    const req = https.request(
+      { hostname: 'api.telegram.org', path: caminho, method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(corpo) } },
+      (res) => {
+        let dados = '';
+        res.on('data', (c) => { dados += c; });
+        res.on('end', () => {
+          const ok = res.statusCode === 200 && dados.includes('"ok":true');
+          console.log(`[aviso] ${dest.nome}: ${ok ? 'enviado' : 'FALHOU ' + res.statusCode}`);
+          resolve(ok);
+        });
+      }
+    );
+    req.on('error', (e) => { console.log(`[aviso] ${dest.nome}: error ${e.message}`); resolve(false); });
+    req.write(corpo);
+    req.end();
+  });
+}
+
+function notificar(registro) {
+  const lista = destinatarios();
+  if (!lista.length) return;
+  const texto = [
+    'ALERTA Novo acesso a proposta Einstein 29',
+    'Nome: ' + registro.nome,
+    'E-mail: ' + registro.email,
+    'Codigo: ' + registro.codigo,
+    'Quando: ' + agora()
+  ].join(String.fromCharCode(10));
+  for (const dest of lista) avisarTelegram(dest, texto);
+}
+
 function gravar(registro, ip) {
   const nome = limpar(registro.nome);
   const email = limpar(registro.email);
@@ -39,6 +87,7 @@ function gravar(registro, ip) {
   const linha = `${agora()};${nome};${email};${codigo};${origem};${limpar(ip)}\n`;
   fs.appendFileSync(CSV, linha, 'utf8');
   console.log(`[registro] ${nome} <${email}> código ${codigo} · ${ip}`);
+  try { notificar({ nome, email, codigo }); } catch (e) { console.log('[aviso] error', e.message); }
   return true;
 }
 
@@ -131,5 +180,7 @@ servidor.listen(PORTA, '127.0.0.1', () => {
   console.log(`  HTTP  : http://127.0.0.1:${PORTA}/status`);
   console.log(`  WS    : ws://127.0.0.1:${PORTA}`);
   console.log(`  Planilha: ${CSV}`);
+  const nomes = destinatarios().map((d) => d.nome).join(', ') || 'ninguém configurado';
+  console.log(`  Avisos  : ${nomes}`);
   console.log('Deixe esta janela aberta enquanto a proposta estiver em uso.');
 });
