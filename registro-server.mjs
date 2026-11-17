@@ -23,6 +23,14 @@ const CABECALHO = 'data_hora;nome;email;codigo;origem;ip\n';
 fs.mkdirSync(PASTA, { recursive: true });
 if (!fs.existsSync(CSV)) fs.writeFileSync(CSV, '\ufeff' + CABECALHO, 'utf8');
 
+const LOG = path.join(PASTA, 'eventos.log');
+
+function log(msg) {
+  const linha = `[${agora()}] ${msg}`;
+  console.log(linha);
+  try { fs.appendFileSync(LOG, linha + String.fromCharCode(10), 'utf8'); } catch {}
+}
+
 function agora() {
   const d = new Date();
   const p = (n) => String(n).padStart(2, '0');
@@ -54,12 +62,12 @@ function avisarTelegram(dest, texto) {
         res.on('data', (c) => { dados += c; });
         res.on('end', () => {
           const ok = res.statusCode === 200 && dados.includes('"ok":true');
-          console.log(`[aviso] ${dest.nome}: ${ok ? 'enviado' : 'FALHOU ' + res.statusCode}`);
+          log(`aviso ${dest.nome}: ${ok ? 'enviado' : 'FALHOU ' + res.statusCode}`);
           resolve(ok);
         });
       }
     );
-    req.on('error', (e) => { console.log(`[aviso] ${dest.nome}: error ${e.message}`); resolve(false); });
+    req.on('error', (e) => { log(`aviso ${dest.nome}: error ${e.message}`); resolve(false); });
     req.write(corpo);
     req.end();
   });
@@ -86,7 +94,7 @@ function gravar(registro, ip) {
   const origem = limpar(registro.origem || 'proposta-web');
   const linha = `${agora()};${nome};${email};${codigo};${origem};${limpar(ip)}\n`;
   fs.appendFileSync(CSV, linha, 'utf8');
-  console.log(`[registro] ${nome} <${email}> código ${codigo} · ${ip}`);
+  log(`registro ${nome} <${email}> código ${codigo} · ${ip}`);
   try { notificar({ nome, email, codigo }); } catch (e) { console.log('[aviso] error', e.message); }
   return true;
 }
