@@ -3,3 +3,6 @@ _interno/
 
 # backups locales del imprimible
 *.bak*
+
+# planilha de acessos: nunca se publica
+_registros/
