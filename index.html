@@ -61,7 +61,7 @@
     .lateral {
       position: fixed;
       top: 50%;
-      z-index: 41;
+      z-index: 1;
       font-size: 10px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -72,12 +72,12 @@
     }
     .lateral.esq {
       left: 24px;
-      transform: translateY(-50%) rotate(-90deg);
+      transform: translateY(-50%) rotate(-90deg) !important;
       transform-origin: left center;
     }
     .lateral.dir {
       right: 24px;
-      transform: translateY(-50%) rotate(90deg);
+      transform: translateY(-50%) rotate(90deg) !important;
       transform-origin: right center;
     }
     @media (max-width: 900px) {
@@ -205,6 +205,37 @@
     }
     .w-baile {
       background: radial-gradient(80% 60% at 50% 20%, rgba(214, 180, 106, 0.16), transparent 60%), #08203a;
+    }
+    .w-benef {
+      background: radial-gradient(85% 65% at 50% 18%, #133468 0%, #04153d 55%, #020b26 100%);
+    }
+    .showcase-4 {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+    .showcase-3 {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+    @media (max-width: 980px) {
+      .showcase-3, .showcase-4 { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+    @media (max-width: 620px) {
+      .showcase-3, .showcase-4 { grid-template-columns: 1fr !important; }
+    }
+    .showcase-3 .glass-item { height: 196px; }
+    .showcase-4 .glass-caption,
+    .showcase-3 .glass-caption { display: block; text-align: left; }
+    .showcase-4 .glass-caption em,
+    .showcase-3 .glass-caption em { display: block; margin-top: 3px; }
+    .pilula { padding: 5px 10px; font-size: 10px; }
+    .showcase-4 .glass-item { height: 178px; }
+    .showcase-4 .glass-caption span { font-size: 12px; }
+    .showcase-4 .glass-caption em { font-size: 11px; }
+    .note-line {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mute);
+      margin: 6px 0 0;
     }
     .w-after {
       background: radial-gradient(70% 50% at 50% 50%, rgba(159, 200, 236, 0.1), transparent 60%), #02050f;
@@ -778,6 +809,9 @@
       <a class="pilula" href="#baile"><i>05</i>Baile</a>
       <a class="pilula" href="#after"><i>06</i>After</a>
       <a class="pilula" href="#financeiro"><i>07</i>Decisão Final</a>
+      <a class="pilula" href="#beneficios"><i>08</i>Benefícios</a>
+      <a class="pilula" href="#metas"><i>09</i>Metas</a>
+      <a class="pilula" href="#governanca"><i>10</i>Governança</a>
     </nav>
     <div class="nav-dir">
       <img class="kaz-ass" src="./assets/kaz-logo-branco.svg" alt="Kaz Formaturas" />
@@ -861,7 +895,7 @@
           <div class="glass-caption"><span>Equinócio</span><em>Meio Formando</em></div>
         </div>
         <div class="glass-item">
-          <img src="./assets/eq_casa-maria.webp" alt="Casa Maria Jardins" />
+          <img src="./assets/eq_casa_recorte.jpg" alt="Casa Maria Jardins" />
           <span class="glass-badge">O Espaço</span>
           <div class="glass-caption"><span>Casa Maria Jardins</span><em>198 Convidados</em></div>
         </div>
@@ -1103,6 +1137,208 @@
     </div>
   </section>
 
+
+  <!-- 08. BENEFÍCIOS DE FECHAMENTO -->
+  <section id="beneficios" class="mundo w-benef">
+    <div class="wrap">
+      <div class="eyebrow">Fechando com a Kaz · 24 Integrantes da Comissão</div>
+      <h2 class="tt">Benefícios de Fechamento</h2>
+      <p class="lead-edit">Pacote idêntico ao do formando e mais oito vantagens exclusivas</p>
+
+      <div class="glass-showcase showcase-4">
+        <div class="glass-item">
+          <img src="./assets/benef_01.jpg" alt="Pacote de formatura" />
+          <span class="glass-badge">Pacote</span>
+          <div class="glass-caption"><span>Pacote de Formatura</span><em>1 mesa + 10 convites no baile</em></div>
+        </div>
+        <div class="glass-item">
+          <img src="./assets/benef_04.jpg" alt="Galleria Bar" />
+          <span class="glass-badge">Galleria</span>
+          <div class="glass-caption"><span>Comemoração no Galleria</span><em>Várias ocasiões do projeto</em></div>
+        </div>
+        <div class="glass-item">
+          <img src="./assets/benef_15.jpg" alt="Convites Kaz" />
+          <span class="glass-badge">Convites</span>
+          <div class="glass-caption"><span>Convites Kaz</span><em>Bailes de formatura e pré-eventos</em></div>
+        </div>
+        <div class="glass-item">
+          <img src="./assets/benef_03.jpg" alt="Chandon na mesa" />
+          <span class="glass-badge">Brinde</span>
+          <div class="glass-caption"><span>Chandon na Mesa</span><em>1 por integrante, para brindar</em></div>
+        </div>
+        <div class="glass-item">
+          <img src="./assets/benef_05.jpg" alt="Crédito fotográfico" />
+          <span class="glass-badge">Foto</span>
+          <div class="glass-caption"><span>Crédito Fotográfico</span><em>R$ 1.720,00 em produtos</em></div>
+        </div>
+        <div class="glass-item">
+          <img src="./assets/benef_09.jpg" alt="Einstein 28" />
+          <span class="glass-badge">Convite</span>
+          <div class="glass-caption"><span>Formatura Einstein 28</span><em>1 convite por integrante</em></div>
+        </div>
+        <div class="glass-item">
+          <img src="./assets/benef_06.jpg" alt="Passaporte Grupo Levels" />
+          <span class="glass-badge">Levels</span>
+          <div class="glass-caption"><span>Passaporte Grupo Levels</span><em>Caza, Destino, Prainha e Balbúrdia</em></div>
+        </div>
+        <div class="glass-item">
+          <img src="./assets/benef_07.jpg" alt="Mesa extra" />
+          <span class="glass-badge">Mesa</span>
+          <div class="glass-caption"><span>Mesa Extra</span><em>Lote garantido a preço de custo</em></div>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi"><strong>24</strong><span>Cotas estruturadas</span></div>
+        <div class="kpi"><strong>R$ 48 mil</strong><span>Investimento Enjoy</span></div>
+        <div class="kpi"><strong>R$ 12.960</strong><span>Desconto de fechamento</span></div>
+        <div class="kpi gold"><strong>8,13%</strong><span>Fee efetivo</span></div>
+      </div>
+
+      <div class="cards-2">
+        <div class="card">
+          <h3>Diferenciais para os 24 Membros da Comissão</h3>
+          <ul>
+            <li><strong>24 Cotas Estruturadas:</strong> brindes de Baile (264 pares de Havaianas) e acesso ao After (264 convidados).</li>
+            <li><strong>Kit Exclusivo no 365º:</strong> 24 kits com Câmera Kodak descartável + Arminha de água (R$ 3.600,00).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Investimento Enjoy &amp; Fechamento</h3>
+          <ul>
+            <li><strong>Enjoy Kaz:</strong> aporte de R$ 48.000,00 no projeto, reduzindo R$ 200,00 por formando no saldo final.</li>
+            <li><strong>Desconto de Fechamento:</strong> abatimento adicional de R$ 12.960,00 na assinatura da parceria.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note-line">Benefícios válidos para cada integrante da comissão · 24 membros · acumulativos com o plano de metas</p>
+    </div>
+  </section>
+
+  <!-- 09. PLANO DE METAS & BÔNUS -->
+  <section id="metas" class="mundo w-baile">
+    <div class="wrap">
+      <div class="eyebrow">Plano de Metas &amp; Bônus · Para cada integrante</div>
+      <h2 class="tt">Metas de Adesão e Bônus de Conquista</h2>
+      <p class="lead-edit">Recompensas progressivas conforme a turma adere ao projeto</p>
+
+      <div class="glass-showcase showcase-3">
+        <div class="glass-item">
+          <img src="./assets/benef_11.jpg" alt="Licor 43 na mesa do baile" />
+          <span class="glass-badge">150 formandos</span>
+          <div class="glass-caption"><span>Meta 01</span><em>01 Licor 43 na mesa do baile</em></div>
+        </div>
+        <div class="glass-item">
+          <img src="./assets/benef_12.jpg" alt="Bebida super premium" />
+          <span class="glass-badge">250 formandos</span>
+          <div class="glass-caption"><span>Meta 02</span><em>01 bebida super premium na mesa</em></div>
+        </div>
+        <div class="glass-item">
+          <img src="./assets/benef_13.jpg" alt="Mesa extra convertida em convites" />
+          <span class="glass-badge">Arrecadação</span>
+          <div class="glass-caption"><span>Meta 03</span><em>Mesa extra → +5 convites (1 mesa e 15)</em></div>
+        </div>
+        <div class="glass-item">
+          <img src="./assets/benef_10.jpg" alt="Bônus Einstein na formatura" />
+          <span class="glass-badge">Bônus</span>
+          <div class="glass-caption"><span>Einstein na Formatura</span><em>Presença da marca no evento</em></div>
+        </div>
+        <div class="glass-item">
+          <img src="./assets/benef_14.jpg" alt="Produção da colação de grau" />
+          <span class="glass-badge">Bônus</span>
+          <div class="glass-caption"><span>Colação de Grau</span><em>Produção no Einstein</em></div>
+        </div>
+        <div class="glass-item">
+          <img src="./assets/benef_08.jpg" alt="Ingresso Retronejo" />
+          <span class="glass-badge">Bônus</span>
+          <div class="glass-caption"><span>Retronejo</span><em>Ingresso por integrante</em></div>
+        </div>
+      </div>
+
+      <div tabindex="0" role="region" aria-labelledby="meta-cap" class="table-wrapper">
+        <table>
+          <caption id="meta-cap">Como as metas são apuradas</caption>
+          <thead>
+            <tr>
+              <th>Meta</th>
+              <th>Condição</th>
+              <th>Recompensa por integrante</th>
+              <th>Comprovação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th>Meta 01</th><td data-label="Condição">150 formandos aderidos ativos</td><td data-label="Recompensa">01 Licor 43 na mesa do baile</td><td data-label="Comprovação">Painel Kaz One</td></tr>
+            <tr><th>Meta 02</th><td data-label="Condição">250 formandos aderidos ativos</td><td data-label="Recompensa">01 bebida super premium na mesa do baile</td><td data-label="Comprovação">Painel Kaz One</td></tr>
+            <tr><th>Meta 03</th><td data-label="Condição">Arrecadação total do contrato (adesões + extras)</td><td data-label="Recompensa">Mesa extra trocada por +5 convites (1 mesa e 15)</td><td data-label="Comprovação">Fechamento financeiro</td></tr>
+            <tr><th>Bônus do pacote</th><td data-label="Condição">Fechamento do projeto com a Kaz</td><td data-label="Recompensa">Einstein na formatura, colação de grau e Retronejo</td><td data-label="Comprovação">Cronograma do projeto</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note-line">As metas são acompanhadas no painel Kaz One — a comissão vê o mesmo número que a Kaz, sem apuração manual</p>
+    </div>
+  </section>
+
+  <!-- 10. GOVERNANÇA, ENTREGAS & COMPROMISSO -->
+  <section id="governanca" class="mundo w-papel">
+    <div class="wrap">
+      <div class="eyebrow">Pilares do Projeto &amp; Entregas Comprometidas</div>
+      <h2 class="tt">Governança, Entregas e Fluxo de Trabalho</h2>
+      <p class="lead-edit">O que a Kaz entrega, em que momento entrega e como a comissão acompanha</p>
+
+      <div tabindex="0" role="region" aria-labelledby="pil-cap" class="table-wrapper">
+        <table>
+          <caption id="pil-cap">Pilares de governança e dimensionamento do projeto</caption>
+          <thead>
+            <tr><th>Pilar do Projeto</th><th>Configuração Planejada</th><th>Benefício Direto para a Turma</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>Integração dos 7 Cursos</th><td data-label="Configuração">Biomedicina, Enfermagem, Eng. Biomédica, Fisioterapia, Med. Veterinária, Nutrição e Odontologia</td><td data-label="Benefício">Campanhas, pré-eventos e cenografia desenhados para unir todas as turmas 2029.2</td></tr>
+            <tr><th>Dimensionamento da Turma</th><td data-label="Configuração">240 formandos pagantes + 24 membros de comissão</td><td data-label="Benefício">264 participantes contemplados nos kits, brindes e After Oficial</td></tr>
+            <tr><th>Pacote-Base Individual</th><td data-label="Configuração">1 mesa redonda (10 lugares) + 10 convites (formando + 9)</td><td data-label="Benefício">Conforto no Pro Magno, somado a 960 convites e 60 mesas extras</td></tr>
+            <tr><th>Fee Administrativo Reduzido</th><td data-label="Configuração">Taxa de 10% (R$ 325.205,56) menos Enjoy (R$ 48.000,00) e Desconto (R$ 12.960,00)</td><td data-label="Benefício">Fee efetivo final de 8,13% (R$ 264.245,56)</td></tr>
+            <tr><th>Transparência Fiscal &amp; Meios</th><td data-label="Configuração">Imposto s/ Taxa Adm. (R$ 63.252,48) + gestão de arrecadação (R$ 12.960,00)</td><td data-label="Benefício">Previsibilidade total, sem custos ocultos</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div tabindex="0" role="region" aria-labelledby="ent-cap" class="table-wrapper">
+        <table>
+          <caption id="ent-cap">Fluxo de trabalho · entregas comprometidas</caption>
+          <thead>
+            <tr><th>Etapa</th><th>Entrega comprometida</th><th>Momento</th><th>Como a comissão acompanha</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>Lançamento</th><td data-label="Entrega">Brandbook Entropia, save the date, ações no campus, 29 kits de adesão e live oficial (Marcos 01 a 06)</td><td data-label="Momento">Após a assinatura</td><td data-label="Acompanhamento">Painel Kaz One + aprovação a cada marco</td></tr>
+            <tr><th>Adesões</th><td data-label="Entrega">Plataforma Kaz One em tempo real + lojinha oficial Entropia</td><td data-label="Momento">Junto ao lançamento</td><td data-label="Acompanhamento">Adesões e caixa em tempo real</td></tr>
+            <tr><th>Lotes extras</th><td data-label="Entrega">960 convites e 60 mesas extras em 4 lotes escalonados</td><td data-label="Momento">Ao longo da campanha</td><td data-label="Acompanhamento">Acompanhamento lote a lote</td></tr>
+            <tr><th>Convidados</th><td data-label="Entrega">Convites nominais com QR Code e portaria antifraude nos 4 eventos</td><td data-label="Momento">Antes de cada evento</td><td data-label="Acompanhamento">Lista nominal validada com a comissão</td></tr>
+            <tr><th>Pré-eventos &amp; Baile</th><td data-label="Entrega">Equinócio (Casa Maria), 365º (Lagoon Beach Club) e O Último Estado (Pro Magno)</td><td data-label="Momento">Conforme Full Journey</td><td data-label="Acompanhamento">Relatório de execução por evento</td></tr>
+            <tr><th>After &amp; pós</th><td data-label="Entrega">After Oficial no mesmo local, acervo fotográfico e reconhecimento facial</td><td data-label="Momento">Após o baile</td><td data-label="Acompanhamento">Entrega do acervo e fechamento financeiro</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cards-2">
+        <div class="card">
+          <h3>Gestão Integrada, Segurança &amp; Tecnologia</h3>
+          <ul>
+            <li><strong>Plataforma Kaz One:</strong> painel em tempo real de adesões, fluxo de caixa, lotes e comunicação oficial.</li>
+            <li><strong>Controle de Acesso QR Code:</strong> convites nominais, portaria dedicada e validação antifraude nos 4 eventos.</li>
+            <li><strong>Blindagem Jurídica:</strong> seguro de RC nos 4 eventos, ECAD, ARTs, CET e alvará temporário.</li>
+            <li><strong>Reconhecimento Facial:</strong> entrega rápida das fotos e parcelamento estendido (50x sob consulta).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Compromisso de Curadoria e Execução</h3>
+          <ul>
+            <li>Cuidar de cada detalhe ao lado da Comissão Einstein 29 — da primeira ação no campus ao café da manhã do After.</li>
+            <li>Transparência financeira e fidelidade absoluta ao conceito <strong>Entropia</strong>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="fim">
     <div class="fim-logos">
       <img src="./assets/kaz-logo-branco.svg" alt="Kaz Formaturas" style="height:44px;" />
@@ -1133,6 +1369,7 @@
           backend próprio). Nunca aponte para um arquivo estático do site.
       */
       const REGISTRY_ENDPOINT = '';
+      const REGISTRY_WS = '';
       const REGISTRY_KEY = 'e29_registry';
 
       function registrarAcesso(nome, contato) {
@@ -1147,6 +1384,12 @@
           atual.push(registro);
           localStorage.setItem(REGISTRY_KEY, JSON.stringify(atual));
         } catch (e) {}
+        if (REGISTRY_WS && 'WebSocket' in window) {
+          try {
+            const ws = new WebSocket(REGISTRY_WS);
+            ws.onopen = () => { ws.send(JSON.stringify(registro)); setTimeout(() => ws.close(), 400); };
+          } catch (e) {}
+        }
         if (REGISTRY_ENDPOINT) {
           try {
             fetch(REGISTRY_ENDPOINT, {
