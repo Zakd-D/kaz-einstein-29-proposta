@@ -1,2 +1,5 @@
 # documentos internos: nunca al publish del sitio
 _interno/
+
+# backups locales del imprimible
+*.bak*
